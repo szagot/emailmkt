@@ -1,5 +1,7 @@
 {% extends '@layout/default.html.twig' %}
 
+{% block title %}Página de Teste{% endblock %}
+
 {% block content %}
 
     <h1>{{ teste }}</h1>
@@ -137,4 +139,12 @@
     {% do minhaClasse.setNome('Daniel Bispo') %}
     <p>Mostrando meu nome após tag "do": {{ minhaClasse.nome }}</p>
 
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript">
+        $( 'p' ).fadeOut( 500, function () {
+            $( this ).fadeIn( 500 );
+        } );
+    </script>
 {% endblock %}
