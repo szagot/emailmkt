@@ -2,15 +2,11 @@
 
 namespace App\Action;
 
+use App\TesteDoTwig;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
-use Zend\Diactoros\Response\JsonResponse;
-use Zend\Expressive\Router;
 use Zend\Expressive\Template;
-use Zend\Expressive\Plates\PlatesRenderer;
-use Zend\Expressive\Twig\TwigRenderer;
-use Zend\Expressive\ZendView\ZendViewRenderer;
 
 class TestePageAction
 {
@@ -25,7 +21,10 @@ class TestePageAction
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next = null)
     {
-        $data = ['teste' => 'Minha primeira aplicação'];
+        $data = [
+            'teste' => 'Minha primeira aplicação',
+            'minhaClasse' => new TesteDoTwig()
+        ];
 
         return new HtmlResponse($this->template->render('app::teste', $data));
     }
