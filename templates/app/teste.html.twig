@@ -137,7 +137,21 @@
     <h3>Classes</h3>
 
     {% do minhaClasse.setNome('Daniel Bispo') %}
-    <p>Mostrando meu nome após tag "do": {{ minhaClasse.nome }}</p>
+    <p>
+        Mostrando meu nome após tag "do": {{ minhaClasse.nome }}.
+        (Não precisa usar o getNome(), pq é automático. Mas pode-se usar tb.)
+    </p>
+    <p>Acessando uma constante diretamente: {{ constant('App\\TesteDoTwig::CONSTANTE_TESTE') }}</p>
+    <p>Acessando uma constante pela classe informada: {{ constant('CONSTANTE_TESTE', minhaClasse) }}</p>
+
+    <h2>Exemplo de include - o With é opcional, quando se quer enviar novos dados para o include</h2>
+    {% include '@app/teste_include.html.twig' with {'dadosWith': teste} %}
+
+    <h2>Fazendo debug de uma variável</h2>
+    <pre>{{ dump(minhaClasse, teste) }}</pre>
+
+    <h2>Fazendo debug de todas as variáveis da página do template</h2>
+    <pre>{{ dump() }}</pre>
 
 {% endblock %}
 

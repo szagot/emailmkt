@@ -8,6 +8,8 @@ namespace App;
 
 class TesteDoTwig
 {
+    const CONSTANTE_TESTE = 'Constante linda!';
+
     private $nome;
 
     /**
