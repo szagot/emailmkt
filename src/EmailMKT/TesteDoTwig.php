@@ -3,7 +3,7 @@
  * Testando a tag do do Twig
  */
 
-namespace App;
+namespace EmailMKT;
 
 
 class TesteDoTwig
