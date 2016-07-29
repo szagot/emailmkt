@@ -43,7 +43,6 @@ class TestePageAction
         $endereco2->setCidade('São Paulo');
         $endereco2->setEstado('SP');
         $endereco2->setLogradouro('Rua Floriano Alves da Costa');
-        $endereco1->setCliente($cliente);
         $this->manager->persist($endereco2);
 
         // Atualiza BD
