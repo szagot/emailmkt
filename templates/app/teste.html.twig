@@ -5,7 +5,26 @@
 {% block content %}
 
     <h1>{{ teste }}</h1>
-    <h2>Criando Variáveis</h2>
+
+    <h2>Testando Doctrine</h2>
+
+    <ul>
+        {% for cliente in clientes %}
+            <li>
+                <b>Nome</b>: {{ cliente.nome }}<br>
+                <b>Email</b>: {{ cliente.email }}<br>
+                <b>CPF</b>: {{ cliente.cpf }}<br>
+                <b>Endereços</b>:
+            </li>
+            <ul>
+                {% for endereco in cliente.endereco %}
+                    <li>{{ endereco.cep }}: {{ endereco.logradouro }} - {{ endereco.cidade }}/{{ endereco.estado }}</li>
+                {% endfor %}
+            </ul>
+        {% endfor %}
+    </ul>
+
+    <hr><h2>Criando Variáveis</h2>
 
     {% set nome = "Daniel Bispo" %}
     {% set idade = 34 %}
@@ -15,7 +34,7 @@
         Ah... Mas que saudades de 10 anos atrás, quando eu tinha {{ idade - 10 }} anos....
     </p>
 
-    <h2>Outro jeito de criar variáveis - Tudo junto</h2>
+    <hr><h2>Outro jeito de criar variáveis - Tudo junto</h2>
 
     {% set nome, idade = "Daniel Bispo", 34 %}
 
@@ -29,7 +48,7 @@
         {{ nome ~ " - " ~ idade }}
     </p>
 
-    <h2>Setando variável com grande conteúdo</h2>
+    <hr><h2>Setando variável com grande conteúdo</h2>
 
     {% set div %}
         <div>Testando outra forma de criar uma variável</div>
@@ -37,7 +56,7 @@
 
     {{ div }}
 
-    <h2>Arrays</h2>
+    <hr><h2>Arrays</h2>
 
     <p>
         Os arrays funcionam de forma parecida ao JS... Assim
@@ -52,7 +71,7 @@
     <p>Mostrando valor da chave 'pos1': {{ arrayAssoc.pos1 }}</p>
     <p>Outro jeito: {{ arrayAssoc['pos2'] }}</p>
 
-    <h2>Laço de Repetição: For</h2>
+    <hr><h2>Laço de Repetição: For</h2>
 
     <h3>Sequencia de numeros</h3>
     <ul>
@@ -97,7 +116,7 @@
         {% endfor %}
     </ul>
 
-    <h2>Filtros</h2>
+    <hr><h2>Filtros</h2>
 
     <h3>Raw - Obrigando a mostrar o valor exatamente como é, sem uso de escapes</h3>
     {% set negrito = "<b>Deixando em Negrito</b>" %}
@@ -118,7 +137,7 @@
     {% set data = "now" %}
     <p>{{ data | date('d/m/Y') }}</p>
 
-    <h2>Estrutura condicional</h2>
+    <hr><h2>Estrutura condicional</h2>
 
     <h3>IF</h3>
     {% set num = 2 %}
@@ -132,7 +151,7 @@
         {% endif %}
     </p>
 
-    <h2>Tags Expecificas</h2>
+    <hr><h2>Tags Expecificas</h2>
 
     <h3>Classes</h3>
 
@@ -144,13 +163,13 @@
     <p>Acessando uma constante diretamente: {{ constant('EmailMKT\\TesteDoTwig::CONSTANTE_TESTE') }}</p>
     <p>Acessando uma constante pela classe informada: {{ constant('CONSTANTE_TESTE', minhaClasse) }}</p>
 
-    <h2>Exemplo de include - o With é opcional, quando se quer enviar novos dados para o include</h2>
+    <hr><h2>Exemplo de include - o With é opcional, quando se quer enviar novos dados para o include</h2>
     {% include '@app/teste_include.html.twig' with {'dadosWith': teste} %}
 
-    <h2>Fazendo debug de uma variável</h2>
+    <hr><h2>Fazendo debug de uma variável</h2>
     <pre>{{ dump(minhaClasse, teste) }}</pre>
 
-    <h2>Fazendo debug de todas as variáveis da página do template</h2>
+    <hr><h2>Fazendo debug de todas as variáveis da página do template</h2>
     <pre>{{ dump() }}</pre>
 
 {% endblock %}
