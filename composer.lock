@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f9a3219d91dde5c7a123ac02357bdce6",
+    "hash": "adbdeff1bef2e2c7dc328e09846a46ec",
     "content-hash": "573b403023bee171ced446f5484c57d9",
     "packages": [
         {
@@ -1016,12 +1016,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "38b6e8f7f15fcff90e5d53aa2bd2defee3151ac2"
+                "reference": "d954a95c1be04118dbbda88f3524424695dd886f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/38b6e8f7f15fcff90e5d53aa2bd2defee3151ac2",
-                "reference": "38b6e8f7f15fcff90e5d53aa2bd2defee3151ac2",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/d954a95c1be04118dbbda88f3524424695dd886f",
+                "reference": "d954a95c1be04118dbbda88f3524424695dd886f",
                 "shasum": ""
             },
             "conflict": {
@@ -1043,6 +1043,7 @@
                 "doctrine/mongodb-odm-bundle": ">=2,<3.0.1",
                 "doctrine/orm": ">=2,<2.4.8|>=2.5,<2.5.1",
                 "dompdf/dompdf": ">=0.6,<0.6.2",
+                "drupal/core": ">=8,<8.1|>=8.1,<8.1.7",
                 "drupal/drupal": ">=8,<8.1|>=8.1,<8.1.7",
                 "firebase/php-jwt": "<2",
                 "friendsofsymfony/rest-bundle": ">=1.2,<1.2.2",
@@ -1133,7 +1134,7 @@
                 }
             ],
             "description": "Prevents installation of composer packages with known security vulnerabilities: no API, simply require it",
-            "time": "2016-07-20 17:24:02"
+            "time": "2016-07-29 12:29:36"
         },
         {
             "name": "symfony/console",
