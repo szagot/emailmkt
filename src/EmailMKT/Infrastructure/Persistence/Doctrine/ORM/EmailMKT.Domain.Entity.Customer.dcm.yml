@@ -1,0 +1,28 @@
+# EmailMKT.Domain.Entity.Customer.dcm.yml
+EmailMKT\Domain\Entity\Customer:
+  # Tipo: sempre entidade
+  type: entity
+  # Nome da tabela do BD
+  table: customers
+  # Quando tiver um ID Primario
+  id:
+    # Nome do campo
+    id:
+      # tipo do campo
+      type: integer
+      # Auto incremento
+      generator:
+        strategy: AUTO
+
+  # Demais campos
+  fields:
+    # Nome do campo
+    name:
+      type: string
+      length: 150
+      # Permite null
+      nullable: true
+    # Nome do campo
+    email:
+      type: string
+      length: 150

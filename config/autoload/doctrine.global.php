@@ -5,7 +5,7 @@ return [
     'doctrine' => [
         'connection' => [
             'orm_default' => [
-                'driverClass' => 'Doctrine\DBAL\Driver\PDOMySql\Driver',
+                'driverClass' => \Doctrine\DBAL\Driver\PDOMySql\Driver::class,
                 'params'      => [
                     'host'          => 'localhost',
                     'port'          => '3306',
@@ -20,11 +20,11 @@ return [
         ],
         'driver'     => [
             'EmailMKT_driver' => [
-                'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
+                'class' => \Doctrine\ORM\Mapping\Driver\YamlDriver::class,
                 'cache' => 'array',
-                'paths' => [__DIR__ . '/../../src/EmailMKT/Domain/Entity']
+                'paths' => [__DIR__ . '/../../src/EmailMKT/Infrastructure/Persistence/Doctrine/ORM']
             ],
-            'orm_default' => [
+            'orm_default'     => [
                 'drivers' => [
                     'EmailMKT\Domain\Entity' => 'EmailMKT_driver'
                 ]
