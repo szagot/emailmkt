@@ -52,7 +52,7 @@ class Customer
     {
         $this->email = $email;
 
-        return $this->email;
+        return $this;
     }
 
 }
