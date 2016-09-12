@@ -25,30 +25,29 @@ class TestePageAction
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next = null)
     {
         // Testando banco de dados
-        $cliente = new Cliente();
-        $cliente->setNome('Daniel Bispo');
-        $cliente->setEmail('szagot@gmail.com');
-        $cliente->setCpf('304.714.108-88');
-        $this->manager->persist($cliente);
+        $endereco = new Endereco();
+        $endereco->setCep('13930-000');
+        $endereco->setCidade('Serra Negra');
+        $endereco->setEstado('SP');
+        $endereco->setLogradouro('Rua Herminio Alves de Godoi');
+        $this->manager->persist($endereco);
 
-        $endereco1 = (new Endereco())->setCliente($cliente);
-        $endereco1->setCep('13930-000');
-        $endereco1->setCidade('Serra Negra');
-        $endereco1->setEstado('SP');
-        $endereco1->setLogradouro('Rua Herminio Alves de Godoi');
-        $this->manager->persist($endereco1);
+        $cliente1 = new Cliente();
+        $cliente1->setNome('Daniel Bispo');
+        $cliente1->setEmail('szagot@gmail.com');
+        $cliente1->setCpf('304.714.108-88');
+        $cliente1->setEndereco($endereco);
 
-        $endereco2 = (new Endereco())->setCliente($cliente);
-        $endereco2->setCep('05271-160');
-        $endereco2->setCidade('São Paulo');
-        $endereco2->setEstado('SP');
-        $endereco2->setLogradouro('Rua Floriano Alves da Costa');
-        $this->manager->persist($endereco2);
+        $cliente2 = new Cliente();
+        $cliente2->setNome('Alini Bispo');
+        $cliente2->setEmail('alini_bispo@hotmail.com');
+        $cliente2->setEndereco($endereco);
+
+        $this->manager->persist($cliente1);
+        $this->manager->persist($cliente2);
 
         // Atualiza BD
         $this->manager->flush();
-        // Atualiza Cliente
-        $this->manager->refresh($cliente);
 
         $data = [
             'teste'       => 'Minha primeira aplicação',

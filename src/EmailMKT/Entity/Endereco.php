@@ -13,35 +13,29 @@ class Endereco
     /**
      * @ORM\Id
      * @ORM\Column(type="integer");
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\GeneratedValue
      */
-    protected $id;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Cliente", inversedBy="endereco")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    protected $cliente;
+    private $id;
 
     /**
      * @ORM\Column(type="string")
      */
-    protected $cep;
+    private $cep;
 
     /**
      * @ORM\Column(type="string")
      */
-    protected $logradouro;
+    private $logradouro;
 
     /**
      * @ORM\Column(type="string")
      */
-    protected $cidade;
+    private $cidade;
 
     /**
      * @ORM\Column(type="string")
      */
-    protected $estado;
+    private $estado;
 
     /**
      * @return mixed
@@ -113,21 +107,6 @@ class Endereco
     public function setEstado($estado)
     {
         $this->estado = $estado;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCliente()
-    {
-        return $this->cliente;
-    }
-
-    public function setCliente($cliente)
-    {
-        $this->cliente = $cliente;
-
-        return $this;
     }
 
 }

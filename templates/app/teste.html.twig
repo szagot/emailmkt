@@ -14,13 +14,11 @@
                 <b>Nome</b>: {{ cliente.nome }}<br>
                 <b>Email</b>: {{ cliente.email }}<br>
                 <b>CPF</b>: {{ cliente.cpf }}<br>
-                <b>Endereços</b>:
+                <b>Endereço</b>:
+                    {{ cliente.endereco.cep }}: {{ cliente.endereco.logradouro }} -
+                    {{ cliente.endereco.cidade }}/{{ cliente.endereco.estado }}<br>
+                <small>Cliente desde <time datetime="{{ cliente.createdAt|date("Y-m-d H:i:s") }}">{{ cliente.createdAt|date("d/m/Y") }}</time></small><hr>
             </li>
-            <ul>
-                {% for endereco in cliente.endereco %}
-                    <li>{{ endereco.cep }}: {{ endereco.logradouro }} - {{ endereco.cidade }}/{{ endereco.estado }}</li>
-                {% endfor %}
-            </ul>
         {% endfor %}
     </ul>
 

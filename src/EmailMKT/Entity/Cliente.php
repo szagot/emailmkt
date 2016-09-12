@@ -2,11 +2,11 @@
 
 namespace EmailMKT\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks
  * @ORM\Table(name="clientes")
  */
 class Cliente
@@ -14,34 +14,41 @@ class Cliente
     /**
      * @ORM\Id
      * @ORM\Column(type="integer");
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\GeneratedValue
      */
-    protected $id;
-
-    /**
-     * @ORM\OneToMany(targetEntity="Endereco", mappedBy="cliente", cascade={"persist", "remove"})
-     */
-    protected $endereco;
+    private $id;
 
     /**
      * @ORM\Column(type="string")
      */
-    protected $nome;
+    private $nome;
 
     /**
      * @ORM\Column(type="string")
      */
-    protected $email;
+    private $email;
 
     /**
      * @ORM\Column(type="string", nullable=true)
      */
-    protected $cpf;
+    private $cpf;
 
-    public function __construct()
-    {
-        $this->endereco = new ArrayCollection();
-    }
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $updateAt;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="EmailMKT\Entity\Endereco")
+     * @ORM\JoinColumn(name="endereco_id", referencedColumnName="id")
+     */
+    private $endereco;
+
 
     /**
      * @return mixed
@@ -107,18 +114,48 @@ class Cliente
         return $this->endereco;
     }
 
-    public function addEndereco(Endereco $endereco)
+    /**
+     * @param mixed $endereco
+     */
+    public function setEndereco($endereco)
     {
-        $this->endereco->add($endereco);
-
-        return $this;
+        $this->endereco = $endereco;
     }
 
-    public function removeEndereco(Endereco $endereco)
+    /**
+     * @return mixed
+     */
+    public function getUpdateAt()
     {
-        $this->endereco->remove($endereco);
+        return $this->updateAt;
+    }
 
-        return $this;
+    /**
+     * @return mixed
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function setCreatedAt()
+    {
+        // Adiciona ambas as datas no momento da criação do item
+        $dateNow = new \DateTime('now', new \DateTimeZone('America/Sao_Paulo'));
+        $this->createdAt = $dateNow;
+        $this->updateAt = $dateNow;
+    }
+
+    /**
+     * @ORM\PreUpdate
+     */
+    public function setUpdateAt()
+    {
+        // Apenas altera a data se houver atualização (se nenhum campo for alterado, não executa)
+        $this->updateAt = new \DateTime('now', new \DateTimeZone('America/Sao_Paulo'));
     }
 
 }
