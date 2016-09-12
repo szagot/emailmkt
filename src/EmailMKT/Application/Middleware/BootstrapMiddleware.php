@@ -1,12 +1,12 @@
 <?php
 
-namespace EmailMKT\Action;
+namespace EmailMKT\Application\Middleware;
 
-use EmailMKT\Service\BootstrapInterface;
+use EmailMKT\Domain\Service\BootstrapInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
-class BootstrapAction
+class BootstrapMiddleware
 {
 
     /**

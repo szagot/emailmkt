@@ -1,23 +1,20 @@
 <?php
 
-namespace EmailMKT\Action;
+namespace EmailMKT\Application\Action;
 
-use Doctrine\ORM\EntityManager;
 use Interop\Container\ContainerInterface;
+use Zend\Expressive\Router\RouterInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
 
-class TestePageFactory
+class HomePageFactory
 {
     public function __invoke(ContainerInterface $container)
     {
+        $router   = $container->get(RouterInterface::class);
         $template = ($container->has(TemplateRendererInterface::class))
             ? $container->get(TemplateRendererInterface::class)
             : null;
 
-        $entity = ($container->has(EntityManager::class))
-            ? $container->get(EntityManager::class)
-            : null;
-
-        return new TestePageAction($entity, $template);
+        return new HomePageAction($router, $template);
     }
 }

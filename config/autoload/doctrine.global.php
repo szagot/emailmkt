@@ -22,11 +22,11 @@ return [
             'EmailMKT_driver' => [
                 'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
                 'cache' => 'array',
-                'paths' => [ __DIR__ . '/../../src/EmailMKT/Entity' ]
+                'paths' => [__DIR__ . '/../../src/EmailMKT/Domain/Entity']
             ],
             'orm_default' => [
                 'drivers' => [
-                    'EmailMKT\Entity' => 'EmailMKT_driver'
+                    'EmailMKT\Domain\Entity' => 'EmailMKT_driver'
                 ]
             ]
         ]

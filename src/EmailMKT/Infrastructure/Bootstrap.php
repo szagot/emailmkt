@@ -3,7 +3,7 @@
 namespace EmailMKT\Infrastructure;
 
 
-use EmailMKT\Service\BootstrapInterface;
+use EmailMKT\Domain\Service\BootstrapInterface;
 
 class Bootstrap implements BootstrapInterface
 {

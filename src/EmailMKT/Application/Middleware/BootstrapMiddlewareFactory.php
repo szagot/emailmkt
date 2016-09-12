@@ -1,16 +1,17 @@
 <?php
 
-namespace EmailMKT\Action;
+namespace EmailMKT\Application\Middleware;
 
+use EmailMKT\Application\Middleware\BootstrapMiddleware;
 use EmailMKT\Infrastructure\Bootstrap;
 use Interop\Container\ContainerInterface;
 
-class BootstrapFactory
+class BootstrapMiddlewareFactory
 {
     public function __invoke(ContainerInterface $container)
     {
         $bootstrap = new Bootstrap();
 
-        return new BootstrapAction($bootstrap);
+        return new BootstrapMiddleware($bootstrap);
     }
 }

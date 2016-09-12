@@ -1,6 +1,6 @@
 <?php
 
-namespace EmailMKT\Entity;
+namespace EmailMKT\Domain\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -44,7 +44,7 @@ class Cliente
     private $updateAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity="EmailMKT\Entity\Endereco")
+     * @ORM\ManyToOne(targetEntity="EmailMKT\Domain\Entity\Endereco")
      * @ORM\JoinColumn(name="endereco_id", referencedColumnName="id")
      */
     private $endereco;
