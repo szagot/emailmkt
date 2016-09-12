@@ -1,4 +1,6 @@
 <?php
+use EmailMKT\Domain\Persistence\CustomerRepositoryInterface;
+use EmailMKT\Infrastructure\Persistence\Doctrine\Repository\CustomerRepositoryFactory;
 use Zend\Expressive\Application;
 use Zend\Expressive\Container\ApplicationFactory;
 use Zend\Expressive\Helper;
@@ -16,11 +18,12 @@ return [
             Helper\ServerUrlHelper::class => Helper\ServerUrlHelper::class,
         ],
         // Use 'factories' for services provided by callbacks/factory classes.
-        'factories' => [
-            Application::class => ApplicationFactory::class,
-            Helper\UrlHelper::class => Helper\UrlHelperFactory::class,
+        'factories'  => [
+            Application::class                 => ApplicationFactory::class,
+            Helper\UrlHelper::class            => Helper\UrlHelperFactory::class,
+            CustomerRepositoryInterface::class => CustomerRepositoryFactory::class,
         ],
-        'aliases' => [
+        'aliases'    => [
             'configuration' => 'config', //Doctrine needs a service called Configuration
         ],
     ],

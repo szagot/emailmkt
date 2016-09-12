@@ -3,6 +3,7 @@
 namespace EmailMKT\Application\Action;
 
 use Doctrine\ORM\EntityManager;
+use EmailMKT\Domain\Persistence\CustomerRepositoryInterface;
 use Interop\Container\ContainerInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
 
@@ -14,10 +15,7 @@ class TestePageFactory
             ? $container->get(TemplateRendererInterface::class)
             : null;
 
-        $entity = ($container->has(EntityManager::class))
-            ? $container->get(EntityManager::class)
-            : null;
-
-        return new TestePageAction($entity, $template);
+        // Testando repositório de contato
+        return new TestePageAction($container->get(CustomerRepositoryInterface::class), $template);
     }
 }
