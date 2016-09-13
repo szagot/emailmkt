@@ -4,20 +4,16 @@
 
 {% block content %}
 
-    <h1>{{ teste }}</h1>
+    <h1>{{ block("title") }}</h1>
 
     <h2>Testando Doctrine</h2>
 
     <ul>
-        {% for cliente in clientes %}
+        {% for contato in contatos %}
             <li>
-                <b>Nome</b>: {{ cliente.nome }}<br>
-                <b>Email</b>: {{ cliente.email }}<br>
-                <b>CPF</b>: {{ cliente.cpf }}<br>
-                <b>Endereço</b>:
-                    {{ cliente.endereco.cep }}: {{ cliente.endereco.logradouro }} -
-                    {{ cliente.endereco.cidade }}/{{ cliente.endereco.estado }}<br>
-                <small>Cliente desde <time datetime="{{ cliente.createdAt|date("Y-m-d H:i:s") }}">{{ cliente.createdAt|date("d/m/Y") }}</time></small><hr>
+                <b>ID</b>: {{ contato.id }}<br>
+                <b>Nome</b>: {{ contato.name }}<br>
+                <b>Email</b>: {{ contato.email }}<br>
             </li>
         {% endfor %}
     </ul>

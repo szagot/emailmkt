@@ -37,9 +37,11 @@ class TestePageAction
 
         $this->repository->create($customer);
 
+        // Pegando todos os Contatos
+        $customers = $this->repository->findAll();
+
         $data = [
-            'teste'    => 'Minha primeira aplicação',
-            'clientes' => []
+            'contatos' => $customers
         ];
 
         return new HtmlResponse($this->template->render('app::teste', $data));

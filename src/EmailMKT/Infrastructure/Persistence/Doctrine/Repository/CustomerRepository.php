@@ -32,7 +32,7 @@ class CustomerRepository extends EntityRepository implements CustomerRepositoryI
 
     public function findAll()
     {
-        // TODO: Implement findAll() method.
+        return parent::findAll();
     }
 
 }
