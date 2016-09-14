@@ -17,15 +17,25 @@
                 <table class="table table-bordered">
                     <tbody>
                         <tr>
-                            <th width="10">#</th>
+                            <th width="1" class="text-center">#</th>
                             <th>Nome</th>
                             <th>Email</th>
+                            <th width="1" class="text-center">Ações</th>
                         </tr>
                         {% for customer in customers %}
                             <tr>
-                                <th>{{ customer.id }}</th>
+                                <th class="text-center">
+                                    <a href="{{ url('customer.update', {id: customer.id}) }}">
+                                        {{ customer.id }}
+                                    </a>
+                                </th>
                                 <td>{{ customer.name }}</td>
                                 <td>{{ customer.email }}</td>
+                                <td>
+                                    <a class="btn btn-primary btn-xs" href="{{ url('customer.update', {id: customer.id}) }}">
+                                        <i class="fa fa-edit"></i> Editar
+                                    </a>
+                                </td>
                             </tr>
                         {% endfor %}
                     </tbody>

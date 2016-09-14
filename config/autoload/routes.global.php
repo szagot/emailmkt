@@ -16,6 +16,7 @@ return [
             // Customers
             Customer\CustomerListAction::class   => Customer\Factory\CustomerListFactory::class,
             Customer\CustomerCreateAction::class => Customer\Factory\CustomerCreateFactory::class,
+            Customer\CustomerUpdateAction::class => Customer\Factory\CustomerUpdateFactory::class,
         ],
     ],
 
@@ -51,6 +52,18 @@ return [
             'path'            => '/admin/customer/new',
             'middleware'      => Customer\CustomerCreateAction::class,
             'allowed_methods' => ['GET', 'POST'],
+        ],
+        [
+            'name'            => 'customer.update',
+            'path'            => '/admin/customer/{id}',
+            'middleware'      => Customer\CustomerUpdateAction::class,
+            'allowed_methods' => ['GET', 'POST'],
+            'options'         => [
+                'tokens' => [
+                    // O parametro id apenas aceita numeros maiores que 0
+                    'id' => '[1-9][0-9]*'
+                ]
+            ]
         ],
     ],
 ];
