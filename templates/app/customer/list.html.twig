@@ -12,34 +12,37 @@
                 <a class="btn btn-app" href="{{ url("customer.create") }}">
                     <i class="fa fa-plus-circle"></i> Novo
                 </a>
-
-                {{ msg }}
             </div>
             <div class="box-body">
                 <table class="table table-bordered">
                     <tbody>
+                    <tr>
+                        <th width="1" class="text-center">#</th>
+                        <th>Nome</th>
+                        <th>Email</th>
+                        <th width="150" class="text-center">Ações</th>
+                    </tr>
+                    {% for customer in customers %}
                         <tr>
-                            <th width="1" class="text-center">#</th>
-                            <th>Nome</th>
-                            <th>Email</th>
-                            <th width="1" class="text-center">Ações</th>
+                            <th class="text-center">
+                                <a href="{{ url('customer.update', {id: customer.id}) }}">
+                                    {{ customer.id }}
+                                </a>
+                            </th>
+                            <td>{{ customer.name }}</td>
+                            <td>{{ customer.email }}</td>
+                            <td class="text-center">
+                                <a class="btn btn-primary btn-xs"
+                                   href="{{ url('customer.update', {id: customer.id}) }}">
+                                    <i class="fa fa-edit"></i> Editar
+                                </a>
+                                <a class="btn btn-danger btn-xs"
+                                   href="{{ url('customer.delete', {id: customer.id}) }}">
+                                    <i class="fa fa-trash-o"></i> Deletar
+                                </a>
+                            </td>
                         </tr>
-                        {% for customer in customers %}
-                            <tr>
-                                <th class="text-center">
-                                    <a href="{{ url('customer.update', {id: customer.id}) }}">
-                                        {{ customer.id }}
-                                    </a>
-                                </th>
-                                <td>{{ customer.name }}</td>
-                                <td>{{ customer.email }}</td>
-                                <td>
-                                    <a class="btn btn-primary btn-xs" href="{{ url('customer.update', {id: customer.id}) }}">
-                                        <i class="fa fa-edit"></i> Editar
-                                    </a>
-                                </td>
-                            </tr>
-                        {% endfor %}
+                    {% endfor %}
                     </tbody>
                 </table>
             </div>

@@ -17,6 +17,7 @@ return [
             Customer\CustomerListAction::class   => Customer\Factory\CustomerListFactory::class,
             Customer\CustomerCreateAction::class => Customer\Factory\CustomerCreateFactory::class,
             Customer\CustomerUpdateAction::class => Customer\Factory\CustomerUpdateFactory::class,
+            Customer\CustomerDeleteAction::class => Customer\Factory\CustomerDeleteFactory::class,
         ],
     ],
 
@@ -57,6 +58,18 @@ return [
             'name'            => 'customer.update',
             'path'            => '/admin/customer/{id}',
             'middleware'      => Customer\CustomerUpdateAction::class,
+            'allowed_methods' => ['GET', 'POST'],
+            'options'         => [
+                'tokens' => [
+                    // O parametro id apenas aceita numeros maiores que 0
+                    'id' => '[1-9][0-9]*'
+                ]
+            ]
+        ],
+        [
+            'name'            => 'customer.delete',
+            'path'            => '/admin/customer/{id}/delete',
+            'middleware'      => Customer\CustomerDeleteAction::class,
             'allowed_methods' => ['GET', 'POST'],
             'options'         => [
                 'tokens' => [
