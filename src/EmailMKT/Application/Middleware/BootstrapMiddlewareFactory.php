@@ -3,6 +3,7 @@
 namespace EmailMKT\Application\Middleware;
 
 use EmailMKT\Application\Middleware\BootstrapMiddleware;
+use EmailMKT\Domain\Service\FlashMessageInterface;
 use EmailMKT\Infrastructure\Bootstrap;
 use Interop\Container\ContainerInterface;
 
@@ -12,6 +13,9 @@ class BootstrapMiddlewareFactory
     {
         $bootstrap = new Bootstrap();
 
-        return new BootstrapMiddleware($bootstrap);
+        return new BootstrapMiddleware(
+            $bootstrap,
+            $container->get(FlashMessageInterface::class)
+        );
     }
 }
