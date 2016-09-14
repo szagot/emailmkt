@@ -7,6 +7,7 @@ use EmailMKT\Domain\Persistence\CustomerRepositoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
+use Zend\Diactoros\Response\RedirectResponse;
 use Zend\Expressive\Template\TemplateRendererInterface;
 
 class CustomerCreateAction
@@ -42,6 +43,13 @@ class CustomerCreateAction
                 ->setEmail($data[ 'email' ]);
 
             $this->repository->create($entity);
+
+            // Atribui uma flash Message
+            $flash = $request->getAttribute('flash');
+            $flash->setMessage('success', 'Contato Cadastrado com sucesso');
+
+            // Redireciona para a listagem
+            return new RedirectResponse('/admin/customers');
         }
 
         return new HtmlResponse($this->template->render('app::customer/create'));
