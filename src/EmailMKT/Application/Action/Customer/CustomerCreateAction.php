@@ -2,6 +2,7 @@
 
 namespace EmailMKT\Application\Action\Customer;
 
+use EmailMKT\Domain\Entity\Customer;
 use EmailMKT\Domain\Persistence\CustomerRepositoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -28,6 +29,21 @@ class CustomerCreateAction
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next = null)
     {
+        // Verifica se houve uma postagem
+        if ($request->getMethod() == 'POST') {
+            // Pega todos os dados da requisição
+            $data = $request->getParsedBody();
+
+            // Cria a entidade
+            // Tarefa: Verificar se usuário já existe
+            $entity = new Customer();
+            $entity
+                ->setName($data[ 'name' ])
+                ->setEmail($data[ 'email' ]);
+
+            $this->repository->create($entity);
+        }
+
         return new HtmlResponse($this->template->render('app::customer/create'));
     }
 }
