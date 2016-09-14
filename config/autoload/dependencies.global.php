@@ -21,6 +21,9 @@ return [
         'factories'  => [
             Application::class                 => ApplicationFactory::class,
             Helper\UrlHelper::class            => Helper\UrlHelperFactory::class,
+            Aura\Session\Session::class        => DaMess\Factory\AuraSessionFactory::class,
+
+            // Factories das entidades
             CustomerRepositoryInterface::class => CustomerRepositoryFactory::class,
         ],
         'aliases'    => [
