@@ -1,6 +1,10 @@
 <?php
 use EmailMKT\Domain\Persistence\CustomerRepositoryInterface;
+use EmailMKT\Domain\Service\FlashMessageInterface;
+
 use EmailMKT\Infrastructure\Persistence\Doctrine\Repository\CustomerRepositoryFactory;
+use EmailMKT\Infrastructure\Service\FlashMessageFactory;
+
 use Zend\Expressive\Application;
 use Zend\Expressive\Container\ApplicationFactory;
 use Zend\Expressive\Helper;
@@ -21,9 +25,12 @@ return [
         'factories'  => [
             Application::class                 => ApplicationFactory::class,
             Helper\UrlHelper::class            => Helper\UrlHelperFactory::class,
-            Aura\Session\Session::class        => DaMess\Factory\AuraSessionFactory::class,
 
-            // Factories das entidades
+            // Controle de seção e flash messages
+            Aura\Session\Session::class        => DaMess\Factory\AuraSessionFactory::class,
+            FlashMessageInterface::class       => FlashMessageFactory::class,
+
+            // Dependencias das entidades
             CustomerRepositoryInterface::class => CustomerRepositoryFactory::class,
         ],
         'aliases'    => [
