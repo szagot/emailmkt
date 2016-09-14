@@ -11,7 +11,7 @@ use Zend\Diactoros\Response\RedirectResponse;
 use Zend\Expressive\Router\RouterInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
 
-class CustomerCreateAction
+class CustomerUpdateAction
 {
     /**
      * @var CustomerRepositoryInterface
@@ -39,31 +39,42 @@ class CustomerCreateAction
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next = null)
     {
+        // Pega id
+        $id = $request->getAttribute('id');
+
+        /** @var Customer $entity */
+        $entity = $this->repository->find($id);
+
+        // Pega a uri da listagem
+        $uri = $this->router->generateUri('customers.list');
+
+        // Verifica se o contato existe
+        if (! $entity) {
+            // Redireciona para a listagem
+            return new RedirectResponse($uri);
+        }
+
         // Verifica se houve uma postagem
         if ($request->getMethod() == 'POST') {
             // Pega todos os dados da requisição
             $data = $request->getParsedBody();
 
-            // Cria a entidade
-            // Tarefa: Verificar se usuário já existe
-            $entity = new Customer();
             $entity
                 ->setName($data[ 'name' ])
                 ->setEmail($data[ 'email' ]);
 
-            $this->repository->create($entity);
+            $this->repository->update($entity);
 
             // Atribui uma flash Message
             $flash = $request->getAttribute('flash');
-            $flash->setMessage('success', 'Contato Cadastrado com sucesso');
-
-            // Pega a uri da listagem
-            $uri = $this->router->generateUri('customers.list');
+            $flash->setMessage('success', 'Contato Alterado com sucesso');
 
             // Redireciona para a listagem
             return new RedirectResponse($uri);
         }
 
-        return new HtmlResponse($this->template->render('app::customer/create'));
+        return new HtmlResponse($this->template->render('app::customer/update',
+            ['customer' => $entity]
+        ));
     }
 }

@@ -3,6 +3,7 @@
 namespace EmailMKT\Infrastructure\Persistence\Doctrine\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\UnitOfWork;
 use EmailMKT\Domain\Persistence\CustomerRepositoryInterface;
 
 class CustomerRepository extends EntityRepository implements CustomerRepositoryInterface
@@ -17,7 +18,18 @@ class CustomerRepository extends EntityRepository implements CustomerRepositoryI
 
     public function update($entity)
     {
-        // TODO: Implement update() method.
+        // Verifica se a unidade de trabalho está gerenciada
+        if ($this->getEntityManager()->getUnitOfWork()->getEntityState($entity) != UnitOfWork::STATE_MANAGED) {
+            // Se não estiver gerenciável, torna gerenciavel
+            // Semelhante ao persist, mas é mais apropriado para atualização.
+            // Dessa forma ele pega apenas o que mudou na persistencia já feita.
+            $this->getEntityManager()->merge($entity);
+        }
+
+        // Aplica as alterações feitas
+        $this->getEntityManager()->flush();
+
+        return $entity;
     }
 
     public function remove($entity)
@@ -27,7 +39,7 @@ class CustomerRepository extends EntityRepository implements CustomerRepositoryI
 
     public function find($id)
     {
-        // TODO: Implement find() method.
+        return parent::find($id);
     }
 
     public function findAll()
