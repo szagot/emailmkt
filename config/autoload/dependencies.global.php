@@ -34,7 +34,8 @@ return [
             CustomerRepositoryInterface::class => CustomerRepositoryFactory::class,
         ],
         'aliases'    => [
-            'configuration' => 'config', //Doctrine needs a service called Configuration
+            'Configuration' => 'config',
+            'Config'        => 'config',
         ],
     ],
 ];
