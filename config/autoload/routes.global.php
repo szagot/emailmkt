@@ -49,8 +49,9 @@ return [
             'allowed_methods' => ['GET'],
             'options'         => [
                 'tokens' => [
-                    'order' => '(id|name|email)',
-                    'type'  => '(asc|desc)'
+                    // Permite nulo ou uma das opções
+                    'order' => '(id|name|email)?',
+                    'type'  => '(asc|desc)?'
                 ]
             ]
         ],
@@ -64,7 +65,7 @@ return [
             'name'            => 'customer.update',
             'path'            => '/admin/customer/{id}',
             'middleware'      => Customer\CustomerUpdateAction::class,
-            'allowed_methods' => ['GET', 'POST'],
+            'allowed_methods' => ['GET', 'PUT'],
             'options'         => [
                 'tokens' => [
                     'id' => '\d+'
@@ -75,7 +76,7 @@ return [
             'name'            => 'customer.delete',
             'path'            => '/admin/customer/{id}/delete',
             'middleware'      => Customer\CustomerDeleteAction::class,
-            'allowed_methods' => ['GET', 'POST'],
+            'allowed_methods' => ['GET', 'DELETE'],
             'options'         => [
                 'tokens' => [
                     'id' => '\d+'

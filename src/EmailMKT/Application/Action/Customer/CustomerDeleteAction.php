@@ -55,7 +55,7 @@ class CustomerDeleteAction
         }
 
         // Verifica se houve uma postagem
-        if ($request->getMethod() == 'POST') {
+        if ($request->getMethod() == 'DELETE') {
             // Pega todos os dados da requisição
             $data = $request->getParsedBody();
 

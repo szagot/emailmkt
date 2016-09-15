@@ -10,6 +10,7 @@
         <div class="col-md-7">
             <div class="box box-danger">
                 <form name="form" role="form" method="post" action="{{ url("customer.delete", {id: customer.id}) }}">
+                    <input type="hidden" name="_method" value="DELETE">
                     <fieldset disabled class="box-body">
                         <div class="form-group">
                             <label for="name">Nome:</label>
@@ -19,7 +20,8 @@
                         <div class="form-group">
                             <label for="email">Email:</label>
                             <div class="input-group">
-                                <label for="email" class="input-group-addon bg-gray"><i class="fa fa-envelope"></i></label>
+                                <label for="email" class="input-group-addon bg-gray"><i
+                                            class="fa fa-envelope"></i></label>
                                 <input type="email" class="form-control" id="email"
                                        value="{{ customer.email }}">
                             </div>
