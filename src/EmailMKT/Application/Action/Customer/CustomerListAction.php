@@ -28,12 +28,20 @@ class CustomerListAction
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next = null)
     {
+        // Pegando campo a ser ordenado e tipo de ordenação
+        $orderField = $request->getAttribute('order');
+        $orderType = $request->getAttribute('type');
+
         // Pegando todos os Contatos
-        $customers = $this->repository->findAll();
+        $customers = $this->repository->findAll($orderField, $orderType);
 
         $data = [
             'customers' => $customers,
-            'msg'       => $request->getAttribute('flash')->getMessage('success')
+            'msg'       => $request->getAttribute('flash')->getMessage('success'),
+            'order'     => [
+                'field' => $orderField,
+                'type'  => $orderType,
+            ]
         ];
 
         return new HtmlResponse($this->template->render('app::customer/list', $data));

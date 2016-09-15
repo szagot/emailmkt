@@ -45,8 +45,23 @@ class CustomerRepository extends EntityRepository implements CustomerRepositoryI
         return parent::find($id);
     }
 
-    public function findAll()
+    public function findAll($orderField = null, $orderType = null)
     {
+        switch (strtolower($orderField)) {
+            // Ordenado por nome?
+            case 'name':
+                return parent::findBy([], ['name' => (strtoupper($orderType) == 'DESC') ? 'DESC' : 'ASC']);
+            // Ordenado por email?
+            case 'email':
+                return parent::findBy([], ['email' => (strtoupper($orderType) == 'DESC') ? 'DESC' : 'ASC']);
+            default:
+                // Ordenado por id, porém em ordem inversa?
+                if (strtoupper($orderType) == 'DESC') {
+                    return parent::findBy([], ['id' => 'DESC']);
+                }
+        }
+
+        // Ordem de cadastro (id em ordem normal)
         return parent::findAll();
     }
 

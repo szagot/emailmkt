@@ -44,9 +44,15 @@ return [
         // Customers
         [
             'name'            => 'customers.list',
-            'path'            => '/admin/customers',
+            'path'            => '/admin/customers{/order,type}',
             'middleware'      => Customer\CustomerListAction::class,
             'allowed_methods' => ['GET'],
+            'options'         => [
+                'tokens' => [
+                    'order' => '(id|name|email)',
+                    'type'  => '(asc|desc)'
+                ]
+            ]
         ],
         [
             'name'            => 'customer.create',
