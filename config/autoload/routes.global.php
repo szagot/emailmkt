@@ -67,8 +67,7 @@ return [
             'allowed_methods' => ['GET', 'POST'],
             'options'         => [
                 'tokens' => [
-                    // O parametro id apenas aceita numeros maiores que 0
-                    'id' => '[1-9][0-9]*'
+                    'id' => '\d+'
                 ]
             ]
         ],
@@ -79,8 +78,7 @@ return [
             'allowed_methods' => ['GET', 'POST'],
             'options'         => [
                 'tokens' => [
-                    // O parametro id apenas aceita numeros maiores que 0
-                    'id' => '[1-9][0-9]*'
+                    'id' => '\d+'
                 ]
             ]
         ],
