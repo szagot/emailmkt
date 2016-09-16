@@ -7,7 +7,6 @@ use EmailMKT\Domain\Persistence\CustomerRepositoryInterface;
 use Interop\Container\ContainerInterface;
 use Zend\Expressive\Router\RouterInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
-use Zend\View\HelperPluginManager;
 
 class CustomerCreateFactory
 {
@@ -16,8 +15,7 @@ class CustomerCreateFactory
         return new CustomerCreateAction(
             $container->get(CustomerRepositoryInterface::class),
             $container->get(TemplateRendererInterface::class),
-            $container->get(RouterInterface::class),
-            $container->get(HelperPluginManager::class)
+            $container->get(RouterInterface::class)
         );
     }
 }

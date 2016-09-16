@@ -10,7 +10,6 @@ use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Diactoros\Response\RedirectResponse;
 use Zend\Expressive\Router\RouterInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
-use Zend\Form\Form;
 use Zend\View\HelperPluginManager;
 
 class CustomerCreateAction
@@ -36,41 +35,15 @@ class CustomerCreateAction
     public function __construct(
         CustomerRepositoryInterface $repository,
         TemplateRendererInterface $template,
-        RouterInterface $router,
-        HelperPluginManager $helperManager
+        RouterInterface $router
     ) {
         $this->template = $template;
         $this->repository = $repository;
         $this->router = $router;
-        $this->helperManager = $helperManager;
     }
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next = null)
     {
-        $myForm = new Form();
-        $myForm->add([
-            'name'    => 'name',
-            'type'    => 'Text',
-            'options' => [
-                'label' => 'Nome:'
-            ]
-        ]);
-        $myForm->add([
-            'name'    => 'email',
-            'type'    => 'Email',
-            'options' => [
-                'label' => 'Email:'
-            ]
-        ]);
-        $myForm->add([
-            'type'  => 'Submit',
-            'attributes' => [
-                'value' => 'Enviar'
-            ]
-        ]);
-
-        $formHelper = $this->helperManager->get('form');
-
         // Verifica se houve uma postagem
         if ($request->getMethod() == 'POST') {
             // Pega todos os dados da requisição
@@ -96,9 +69,6 @@ class CustomerCreateAction
             return new RedirectResponse($uri);
         }
 
-        return new HtmlResponse($this->template->render('app::customer/create', [
-            'myForm'     => $myForm,
-            'formHelper' => $formHelper
-        ]));
+        return new HtmlResponse($this->template->render('app::customer/create'));
     }
 }
