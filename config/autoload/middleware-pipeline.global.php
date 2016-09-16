@@ -1,15 +1,16 @@
 <?php
-use EmailMKT\Application\Middleware\BootstrapMiddleware;
-use EmailMKT\Application\Middleware\BootstrapMiddlewareFactory;
+use EmailMKT\Application\Middleware;
 use Zend\Expressive\Container\ApplicationFactory;
 use Zend\Expressive\Helper;
 
 return [
     'dependencies'        => [
         'factories' => [
-            Helper\ServerUrlMiddleware::class => Helper\ServerUrlMiddlewareFactory::class,
-            Helper\UrlHelperMiddleware::class => Helper\UrlHelperMiddlewareFactory::class,
-            BootstrapMiddleware::class        => BootstrapMiddlewareFactory::class,
+            Helper\ServerUrlMiddleware::class     => Helper\ServerUrlMiddlewareFactory::class,
+            Helper\UrlHelperMiddleware::class     => Helper\UrlHelperMiddlewareFactory::class,
+            Middleware\BootstrapMiddleware::class => Middleware\BootstrapMiddlewareFactory::class,
+            Middleware\TwigMiddleware::class      => Middleware\TwigMiddlewareFactory::class,
+
         ],
     ],
     // This can be used to seed pre- and/or post-routing middleware
@@ -43,7 +44,8 @@ return [
                 // - pre-conditions
                 // - modifications to outgoing responses
                 Helper\ServerUrlMiddleware::class,
-                BootstrapMiddleware::class,
+                Middleware\BootstrapMiddleware::class,
+                Middleware\TwigMiddleware::class,
             ],
             'priority'   => 10000,
         ],
