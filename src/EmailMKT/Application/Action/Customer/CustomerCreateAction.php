@@ -57,15 +57,10 @@ class CustomerCreateAction
             // Validando form
             $form->setData($dataRaw);
             if ($form->isValid()) {
-                // Pega os dados validados do form
-                $data = $form->getData();
+                // Pega a entidade já com os dados do form hidratados (vide CustomerForm)
+                $entity = $form->getData();
 
-                // Cria a entidade
-                $entity = new Customer();
-                $entity
-                    ->setName($data[ 'name' ])
-                    ->setEmail($data[ 'email' ]);
-
+                // Cria o contato no BD
                 $this->repository->create($entity);
 
                 // Atribui uma flash Message
