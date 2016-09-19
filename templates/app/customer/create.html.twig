@@ -14,6 +14,9 @@
     {% set submit = form.get('submit') %}
     {% do submit.setAttribute('class', 'btn btn-primary').setLabel('<i class="fa fa-check"></i> Cadastrar') %}
 
+    {% do form.setAttribute('action', url('customer.create')) %}
+    {% do form.prepare() %}
+
     <div class="row">
         <div class="col-md-7">
             <div class="box box-primary">

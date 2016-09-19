@@ -45,33 +45,43 @@ class CustomerCreateAction
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next = null)
     {
+        $form = new CustomerForm();
+
         // Verifica se houve uma postagem
         if ($request->getMethod() == 'POST') {
             // Pega todos os dados da requisição
-            $data = $request->getParsedBody();
+            $dataRaw = $request->getParsedBody();
 
-            // Cria a entidade
             // Tarefa: Verificar se usuário já existe
-            $entity = new Customer();
-            $entity
-                ->setName($data[ 'name' ])
-                ->setEmail($data[ 'email' ]);
 
-            $this->repository->create($entity);
+            // Validando form
+            $form->setData($dataRaw);
+            if ($form->isValid()) {
+                // Pega os dados validados do form
+                $data = $form->getData();
 
-            // Atribui uma flash Message
-            $flash = $request->getAttribute('flash');
-            $flash->setMessage('success', 'Contato Cadastrado com sucesso');
+                // Cria a entidade
+                $entity = new Customer();
+                $entity
+                    ->setName($data[ 'name' ])
+                    ->setEmail($data[ 'email' ]);
 
-            // Pega a uri da listagem
-            $uri = $this->router->generateUri('customers.list');
+                $this->repository->create($entity);
 
-            // Redireciona para a listagem
-            return new RedirectResponse($uri);
+                // Atribui uma flash Message
+                $flash = $request->getAttribute('flash');
+                $flash->setMessage('success', 'Contato Cadastrado com sucesso');
+
+                // Pega a uri da listagem
+                $uri = $this->router->generateUri('customers.list');
+
+                // Redireciona para a listagem
+                return new RedirectResponse($uri);
+            }
         }
 
         return new HtmlResponse($this->template->render('app::customer/create', [
-            'form' => new CustomerForm()
+            'form' => $form
         ]));
     }
 }
