@@ -6,7 +6,6 @@ return [
     'dependencies' => [
         'invokables' => [
             Zend\Expressive\Router\RouterInterface::class => Zend\Expressive\Router\AuraRouter::class,
-            Action\PingAction::class                      => Action\PingAction::class,
         ],
 
         'factories' => [
@@ -26,12 +25,6 @@ return [
             'name'            => 'home',
             'path'            => '/',
             'middleware'      => Action\HomePageAction::class,
-            'allowed_methods' => ['GET'],
-        ],
-        [
-            'name'            => 'api.ping',
-            'path'            => '/api/ping',
-            'middleware'      => Action\PingAction::class,
             'allowed_methods' => ['GET'],
         ],
         [
