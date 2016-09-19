@@ -2,6 +2,7 @@
 
 namespace EmailMKT\Application\Action\Customer;
 
+use EmailMKT\Application\Form\CustomerForm;
 use EmailMKT\Domain\Entity\Customer;
 use EmailMKT\Domain\Persistence\CustomerRepositoryInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -69,6 +70,8 @@ class CustomerCreateAction
             return new RedirectResponse($uri);
         }
 
-        return new HtmlResponse($this->template->render('app::customer/create'));
+        return new HtmlResponse($this->template->render('app::customer/create', [
+            'form' => new CustomerForm()
+        ]));
     }
 }
