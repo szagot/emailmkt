@@ -2,6 +2,8 @@
 
 namespace EmailMKT\Application\Action\Customer;
 
+use EmailMKT\Application\Form\CustomerForm;
+use EmailMKT\Application\Form\HttpMethodElement;
 use EmailMKT\Domain\Entity\Customer;
 use EmailMKT\Domain\Persistence\CustomerRepositoryInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -54,27 +56,36 @@ class CustomerUpdateAction
             return new RedirectResponse($uri);
         }
 
+        // Iniciando formulário e ligando ele com a entidade, acrescentando o campo de metodo
+        $form = new CustomerForm();
+        $form->add(new HttpMethodElement(HttpMethodElement::PUT));
+        $form->bind($entity);
+
         // Verifica se houve uma postagem
         if ($request->getMethod() == 'PUT') {
             // Pega todos os dados da requisição
-            $data = $request->getParsedBody();
+            $dataRaw = $request->getParsedBody();
 
-            $entity
-                ->setName($data[ 'name' ])
-                ->setEmail($data[ 'email' ]);
+            // Validando form
+            $form->setData($dataRaw);
+            if ($form->isValid()) {
+                // Pega a entidade já com os dados do form hidratados (vide CustomerForm)
+                $entity = $form->getData();
 
-            $this->repository->update($entity);
+                // Atualiza o contato no BD
+                $this->repository->update($entity);
 
-            // Atribui uma flash Message
-            $flash = $request->getAttribute('flash');
-            $flash->setMessage('success', 'Contato Alterado com sucesso');
+                // Atribui uma flash Message
+                $flash = $request->getAttribute('flash');
+                $flash->setMessage('success', 'Contato Alterado com sucesso');
 
-            // Redireciona para a listagem
-            return new RedirectResponse($uri);
+                // Redireciona para a listagem
+                return new RedirectResponse($uri);
+            }
         }
 
         return new HtmlResponse($this->template->render('app::customer/update',
-            ['customer' => $entity]
+            ['form' => $form]
         ));
     }
 }
