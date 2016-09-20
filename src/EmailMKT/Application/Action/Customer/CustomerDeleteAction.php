@@ -2,6 +2,8 @@
 
 namespace EmailMKT\Application\Action\Customer;
 
+use EmailMKT\Application\Form\CustomerForm;
+use EmailMKT\Application\Form\HttpMethodElement;
 use EmailMKT\Domain\Entity\Customer;
 use EmailMKT\Domain\Persistence\CustomerRepositoryInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -54,15 +56,14 @@ class CustomerDeleteAction
             return new RedirectResponse($uri);
         }
 
+        // Iniciando formulário e ligando ele com a entidade, acrescentando o campo de metodo
+        $form = new CustomerForm();
+        $form->add(new HttpMethodElement(HttpMethodElement::DEL));
+        $form->bind($entity);
+
         // Verifica se houve uma postagem
         if ($request->getMethod() == 'DELETE') {
-            // Pega todos os dados da requisição
-            $data = $request->getParsedBody();
-
-            $entity
-                ->setName($data[ 'name' ])
-                ->setEmail($data[ 'email' ]);
-
+            // Remove o contato do BD
             $this->repository->remove($entity);
 
             // Atribui uma flash Message
@@ -74,7 +75,7 @@ class CustomerDeleteAction
         }
 
         return new HtmlResponse($this->template->render('app::customer/delete',
-            ['customer' => $entity]
+            ['form' => $form]
         ));
     }
 }

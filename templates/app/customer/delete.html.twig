@@ -1,39 +1,48 @@
 {% extends '@layout/default.html.twig' %}
 
-{% block page_header %}Apagar o Contato - {{ customer.name }}{% endblock %}
+{% block page_header %}Apagar o Contato - {{ form.getObject().name }}{% endblock %}
 
 {% block title %}{{ block("page_header") }} | {{ parent() }}{% endblock %}
 
 {% block content %}
+    {% set name = form.get('name') %}
+    {% do name.setAttribute('class', 'form-control') %}
+
+    {% set email = form.get('email') %}
+    {% do email.setAttribute('class', 'form-control') %}
+
+    {% set submit = form.get('submit') %}
+    {% do submit.setAttribute('class', 'btn btn-danger').setLabel('<i class="fa fa-trash-o"></i> Apagar mesmo?') %}
+
+    {% do form.setAttribute('action', url('customer.delete', {id: form.getObject().id})) %}
+    {% do form.prepare() %}
 
     <div class="row">
         <div class="col-md-7">
             <div class="box box-danger">
-                <form name="form" role="form" method="post" action="{{ url("customer.delete", {id: customer.id}) }}">
-                    <input type="hidden" name="_method" value="DELETE">
-                    <fieldset disabled class="box-body">
-                        <div class="form-group">
-                            <label for="name">Nome:</label>
-                            <input type="text" class="form-control" id="name"
-                                   value="{{ customer.name }}">
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email:</label>
-                            <div class="input-group">
-                                <label for="email" class="input-group-addon bg-gray"><i
-                                            class="fa fa-envelope"></i></label>
-                                <input type="email" class="form-control" id="email"
-                                       value="{{ customer.email }}">
-                            </div>
-                        </div>
-                    </fieldset>
-                    <div class="box-footer">
-                        <button type="submit" class="btn btn-danger"><i class="fa fa-trash-o"></i> Apagar mesmo?
-                        </button>
-                        <a class="btn btn-default" href="{{ url("customers.list") }}"><i
-                                    class="fa fa-ban text-danger"></i> Cancelar</a>
+
+                <fieldset disabled class="box-body">
+                    <div class="form-group">
+                        {{ formRow(name) }}
                     </div>
+                    <div class="form-group">
+                        {{ formRow(email) }}
+                    </div>
+                </fieldset>
+
+                {{ form().openTag(form) | raw }}
+                {{ formHidden(form.get('_method')) }}
+
+                <div class="box-footer">
+                    {{ formButton(submit) }}
+                    <a class="btn btn-default" href="{{ url("customers.list") }}"><i class="fa fa-ban text-danger"></i>
+                        Cancelar</a>
+                </div>
+
+                {{ form().closeTag() | raw }}
+
                 </form>
+
             </div>
         </div>
     </div>
