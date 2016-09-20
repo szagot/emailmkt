@@ -5,14 +5,9 @@
 {% block title %}{{ block("page_header") }} | {{ parent() }}{% endblock %}
 
 {% block content %}
-    {% set name = form.get('name') %}
-    {% do name.setAttribute('class', 'form-control') %}
+    {% include '@app/customer/_form-header.html.twig' %}
 
-    {% set email = form.get('email') %}
-    {% do email.setAttribute('class', 'form-control') %}
-
-    {% set submit = form.get('submit') %}
-    {% do submit.setAttribute('class', 'btn btn-primary').setLabel('<i class="fa fa-check"></i> Salvar Alterações') %}
+    {% do form.get('submit').setAttribute('class', 'btn btn-primary').setLabel('<i class="fa fa-check"></i> Salvar Alterações') %}
 
     {% do form.setAttribute('action', url('customer.update', {id: form.getObject().id})) %}
     {% do form.prepare() %}
@@ -24,48 +19,12 @@
                 {{ form().openTag(form) | raw }}
                 {{ formHidden(form.get('_method')) }}
 
-                <div class="box-body">
-                    <div class="form-group">
-                        {{ formRow(name) }}
-                    </div>
-                    <div class="form-group">
-                        {{ formRow(email) }}
-                    </div>
-                </div>
-                <div class="box-footer">
-                    {{ formButton(submit) }}
-                    <a class="btn btn-default" href="{{ url("customers.list") }}"><i class="fa fa-ban text-danger"></i>
-                        Cancelar</a>
-                </div>
+                {% include '@app/customer/_form-body.html.twig' %}
+
+                {% include '@app/customer/_form-footer.html.twig' %}
 
                 {{ form().closeTag() | raw }}
 
-                <!-- Form sem o uso do Zend-Form
-                {%  if customer is defined %}
-                <form name="form" role="form" method="post" action="{{ url("customer.update", {id: customer.id}) }}">
-                    <input type="hidden" name="_method" value="PUT">
-                    <div class="box-body">
-                        <div class="form-group">
-                            <label for="name">Nome:</label>
-                            <input type="text" class="form-control" name="name" id="name" value="{{ customer.name }}">
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email:</label>
-                            <div class="input-group">
-                                <label for="email" class="input-group-addon"><i class="fa fa-envelope"></i></label>
-                                <input type="email" class="form-control" name="email" id="email"
-                                       value="{{ customer.email }}" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="box-footer">
-                        <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Alterar</button>
-                        <a class="btn btn-default" href="{{ url("customers.list") }}"><i
-                                    class="fa fa-ban text-danger"></i> Cancelar</a>
-                    </div>
-                </form>
-                {% endif %}
-                -->
             </div>
         </div>
     </div>
