@@ -1,8 +1,13 @@
+{% set email = form.get('email') %}
+{% set msg = formElementErrors(email, { class: 'help-block' }) %}
+
 <div class="box-body">
     <div class="form-group">
         {{ formRow(form.get('name')) }}
     </div>
-    <div class="form-group">
-        {{ formRow(form.get('email')) }}
+    <div class="form-group {{ msg ? 'has-error' }}">
+        {{ formLabel(email) }}
+        {{ formElement(email) }}
+        {{ msg | raw }}
     </div>
 </div>

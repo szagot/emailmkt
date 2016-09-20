@@ -1,6 +1,7 @@
 <?php
 namespace EmailMKT\Application\Form;
 
+use EmailMKT\Application\InputFilter\CustomerInputFilter;
 use EmailMKT\Domain\Entity\Customer;
 use Zend\Form\Form;
 use Zend\Form\Element;
@@ -15,6 +16,9 @@ class CustomerForm extends Form
         // Hidratador: pega um array com os dados do form e seta as propriedades da entidade
         $this->setHydrator(new ClassMethods());
         $this->setObject(new Customer());
+
+        // Validando Customer
+        $this->setInputFilter(new CustomerInputFilter());
 
         // Adicionando Campos
         $this->add([
@@ -35,12 +39,18 @@ class CustomerForm extends Form
 
         $this->add([
             'name'       => 'email',
-            'type'       => Element\Email::class,
+            // NOTA:
+            // Element\Email::class não usada por estar sendo validado em CustomerInputFilter
+            // Pq senão ele mostra os erros em ingles referente eo email
+            // No lugar, usa-se o atributo email*
+            'type'       => Element\Text::class, # vide nota acima
             'options'    => [
                 'label' => 'E-mail'
             ],
             'attributes' => [
-                'id' => 'email'
+                'id' => 'email',
+                // *Este atributo
+                'type' => 'email' # vide nota acima
             ],
         ]);
 
