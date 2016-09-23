@@ -30,6 +30,9 @@ return [
             Aura\Session\Session::class        => DaMess\Factory\AuraSessionFactory::class,
             FlashMessageInterface::class       => FlashMessageFactory::class,
 
+            // Fixtures: https://github.com/codeedu/zendexpr-doctrine-fixture
+            'doctrine:fixtures_cmd:load'       => CodeEdu\FixtureFactory::class,
+
             // Dependencias das entidades
             CustomerRepositoryInterface::class => CustomerRepositoryFactory::class,
         ],
