@@ -28,15 +28,21 @@ class CustomerDeleteAction
      * @var RouterInterface
      */
     private $router;
+    /**
+     * @var CustomerForm
+     */
+    private $form;
 
     public function __construct(
         CustomerRepositoryInterface $repository,
         TemplateRendererInterface $template,
-        RouterInterface $router
+        RouterInterface $router,
+        CustomerForm $form
     ) {
         $this->template = $template;
         $this->repository = $repository;
         $this->router = $router;
+        $this->form = $form;
     }
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next = null)
@@ -57,9 +63,8 @@ class CustomerDeleteAction
         }
 
         // Iniciando formulário e ligando ele com a entidade, acrescentando o campo de metodo
-        $form = new CustomerForm();
-        $form->add(new HttpMethodElement(HttpMethodElement::DEL));
-        $form->bind($entity);
+        $this->form->add(new HttpMethodElement(HttpMethodElement::DEL));
+        $this->form->bind($entity);
 
         // Verifica se houve uma postagem
         if ($request->getMethod() == 'DELETE') {
@@ -75,7 +80,7 @@ class CustomerDeleteAction
         }
 
         return new HtmlResponse($this->template->render('app::customer/delete',
-            ['form' => $form]
+            ['form' => $this->form]
         ));
     }
 }

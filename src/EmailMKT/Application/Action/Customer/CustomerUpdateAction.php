@@ -28,15 +28,21 @@ class CustomerUpdateAction
      * @var RouterInterface
      */
     private $router;
+    /**
+     * @var CustomerForm
+     */
+    private $form;
 
     public function __construct(
         CustomerRepositoryInterface $repository,
         TemplateRendererInterface $template,
-        RouterInterface $router
+        RouterInterface $router,
+        CustomerForm $form
     ) {
         $this->template = $template;
         $this->repository = $repository;
         $this->router = $router;
+        $this->form = $form;
     }
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next = null)
@@ -57,9 +63,8 @@ class CustomerUpdateAction
         }
 
         // Iniciando formulário e ligando ele com a entidade, acrescentando o campo de metodo
-        $form = new CustomerForm();
-        $form->add(new HttpMethodElement(HttpMethodElement::PUT));
-        $form->bind($entity);
+        $this->form->add(new HttpMethodElement(HttpMethodElement::PUT));
+        $this->form->bind($entity);
 
         // Verifica se houve uma postagem
         if ($request->getMethod() == 'PUT') {
@@ -67,10 +72,10 @@ class CustomerUpdateAction
             $dataRaw = $request->getParsedBody();
 
             // Validando form
-            $form->setData($dataRaw);
-            if ($form->isValid()) {
+            $this->form->setData($dataRaw);
+            if ($this->form->isValid()) {
                 // Pega a entidade já com os dados do form hidratados (vide CustomerForm)
-                $entity = $form->getData();
+                $entity = $this->form->getData();
 
                 // Atualiza o contato no BD
                 $this->repository->update($entity);
@@ -85,7 +90,7 @@ class CustomerUpdateAction
         }
 
         return new HtmlResponse($this->template->render('app::customer/update',
-            ['form' => $form]
+            ['form' => $this->form]
         ));
     }
 }

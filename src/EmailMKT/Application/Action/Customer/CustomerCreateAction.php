@@ -32,21 +32,25 @@ class CustomerCreateAction
      * @var HelperPluginManager
      */
     private $helperManager;
+    /**
+     * @var CustomerForm
+     */
+    private $form;
 
     public function __construct(
         CustomerRepositoryInterface $repository,
         TemplateRendererInterface $template,
-        RouterInterface $router
+        RouterInterface $router,
+        CustomerForm $form
     ) {
         $this->template = $template;
         $this->repository = $repository;
         $this->router = $router;
+        $this->form = $form;
     }
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next = null)
     {
-        $form = new CustomerForm();
-
         // Verifica se houve uma postagem
         if ($request->getMethod() == 'POST') {
             // Pega todos os dados da requisição
@@ -55,10 +59,10 @@ class CustomerCreateAction
             // Tarefa: Verificar se usuário já existe
 
             // Validando form
-            $form->setData($dataRaw);
-            if ($form->isValid()) {
+            $this->form->setData($dataRaw);
+            if ($this->form->isValid()) {
                 // Pega a entidade já com os dados do form hidratados (vide CustomerForm)
-                $entity = $form->getData();
+                $entity = $this->form->getData();
 
                 // Cria o contato no BD
                 $this->repository->create($entity);
@@ -76,7 +80,7 @@ class CustomerCreateAction
         }
 
         return new HtmlResponse($this->template->render('app::customer/create', [
-            'form' => $form
+            'form' => $this->form
         ]));
     }
 }

@@ -5,6 +5,7 @@
 
 use Zend\View;
 use EmailMKT\Infrastructure;
+use EmailMKT\Application\Form;
 
 $forms = [
     'dependencies' => [
@@ -16,6 +17,7 @@ $forms = [
         ],
         'factories'  => [
             View\HelperPluginManager::class => Infrastructure\View\HelperPluginManagerFactory::class,
+            Form\CustomerForm::class        => Form\Factory\CustomerFormFactory::class
         ],
     ],
     'view_helpers' => [
