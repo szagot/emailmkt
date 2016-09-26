@@ -11,13 +11,13 @@ use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use EmailMKT\Domain\Entity\Customer;
 
-class CustumerFixture implements FixtureInterface
+class CustomerFixture implements FixtureInterface
 {
     public function load(ObjectManager $manager)
     {
         // Dado fake
         $customer = new Customer();
-        $customer->setName('Daniel Bispo')->setEmail('daniel.fixtures@tmw.com.br');
+        $customer->setName('Daniel Bispo')->setEmail('daniel@tmw.com.br');
 
         // Registrando no BD
         $manager->persist($customer);
