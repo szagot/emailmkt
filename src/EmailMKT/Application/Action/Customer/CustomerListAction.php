@@ -20,7 +20,7 @@ class CustomerListAction
      */
     private $template;
 
-    public function __construct(CustomerRepositoryInterface $repository, TemplateRendererInterface $template = null)
+    public function __construct(CustomerRepositoryInterface $repository, TemplateRendererInterface $template)
     {
         $this->template = $template;
         $this->repository = $repository;

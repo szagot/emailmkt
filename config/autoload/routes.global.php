@@ -10,7 +10,9 @@ return [
 
         'factories' => [
             Action\HomePageAction::class         => Action\HomePageFactory::class,
-            Action\TestePageAction::class        => Action\TestePageFactory::class,
+
+            // Login/Logout
+            Action\LoginPageAction::class        => Action\LoginPageFactory::class,
 
             // Customers
             Customer\CustomerListAction::class   => Customer\Factory\CustomerListFactory::class,
@@ -27,11 +29,13 @@ return [
             'middleware'      => Action\HomePageAction::class,
             'allowed_methods' => ['GET'],
         ],
+
+        // Login/Logout
         [
-            'name'            => 'teste',
-            'path'            => '/teste',
-            'middleware'      => Action\TestePageAction::class,
-            'allowed_methods' => ['GET'],
+            'name'            => 'auth.login',
+            'path'            => '/admin/login',
+            'middleware'      => Action\LoginPageAction::class,
+            'allowed_methods' => ['GET', 'POST'],
         ],
 
         // Customers

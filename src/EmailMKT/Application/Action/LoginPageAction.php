@@ -2,14 +2,13 @@
 
 namespace EmailMKT\Application\Action;
 
-use EmailMKT\Domain\Entity\Customer;
 use EmailMKT\Domain\Persistence\CustomerRepositoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Expressive\Template\TemplateRendererInterface;
 
-class TestePageAction
+class LoginPageAction
 {
     /**
      * @var CustomerRepositoryInterface
@@ -21,7 +20,7 @@ class TestePageAction
      */
     private $template;
 
-    public function __construct(CustomerRepositoryInterface $repository, TemplateRendererInterface $template = null)
+    public function __construct(CustomerRepositoryInterface $repository, TemplateRendererInterface $template)
     {
         $this->template = $template;
         $this->repository = $repository;
@@ -29,21 +28,6 @@ class TestePageAction
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next = null)
     {
-        // Testando entrada no BD de Contato
-        $customer = new Customer();
-        $customer
-            ->setName('Daniel Bispo')
-            ->setEmail('daniel@tmw.com.br');
-
-        $this->repository->create($customer);
-
-        // Pegando todos os Contatos
-        $customers = $this->repository->findAll();
-
-        $data = [
-            'contatos' => $customers
-        ];
-
-        return new HtmlResponse($this->template->render('app::teste', $data));
+        return new HtmlResponse($this->template->render('app::login'));
     }
 }
