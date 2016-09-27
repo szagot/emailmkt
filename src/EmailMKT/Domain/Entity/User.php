@@ -1,15 +1,16 @@
 <?php
 /**
- * Entidade de Contato
+ * Entidade de Usuário
  */
 
 namespace EmailMKT\Domain\Entity;
 
-class Customer
+class User
 {
     private $id;
     private $name;
     private $email;
+    private $password;
 
     /**
      * @return mixed
@@ -30,7 +31,7 @@ class Customer
     /**
      * @param mixed $name
      *
-     * @return Customer
+     * @return User
      */
     public function setName($name)
     {
@@ -50,11 +51,31 @@ class Customer
     /**
      * @param mixed $email
      *
-     * @return Customer
+     * @return User
      */
     public function setEmail($email)
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * @param mixed $password
+     *
+     * @return User
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
 
         return $this;
     }

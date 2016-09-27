@@ -1,0 +1,33 @@
+# EmailMKT.Domain.Entity.User.dcm.yml
+EmailMKT\Domain\Entity\User:
+  # Tipo: sempre entidade
+  type: entity
+  # Declarando repositório personalizado
+  #repositoryClass: EmailMKT\Infrastructure\Persistence\Doctrine\Repository\CustomerRepository
+  # Nome da tabela do BD
+  table: users
+  # Quando tiver um ID Primario
+  id:
+    # Nome do campo
+    id:
+      # tipo do campo
+      type: integer
+      # Auto incremento
+      generator:
+        strategy: AUTO
+
+  # Demais campos
+  fields:
+    # Nome do campo
+    name:
+      type: string
+      length: 150
+    # Nome do campo
+    email:
+      type: string
+      unique: true
+      length: 150
+    # Nome do campo
+    password:
+      type: string
+      length: 60
