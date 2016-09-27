@@ -17,7 +17,8 @@ $forms = [
         ],
         'factories'  => [
             View\HelperPluginManager::class => Infrastructure\View\HelperPluginManagerFactory::class,
-            Form\CustomerForm::class        => Form\Factory\CustomerFormFactory::class
+            Form\LoginForm::class           => Form\Factory\LoginFormFactory::class,
+            Form\CustomerForm::class        => Form\Factory\CustomerFormFactory::class,
         ],
     ],
     'view_helpers' => [

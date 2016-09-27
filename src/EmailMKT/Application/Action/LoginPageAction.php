@@ -2,6 +2,7 @@
 
 namespace EmailMKT\Application\Action;
 
+use EmailMKT\Application\Form\LoginForm;
 use EmailMKT\Domain\Persistence\CustomerRepositoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -19,15 +20,25 @@ class LoginPageAction
      * @var TemplateRendererInterface
      */
     private $template;
+    /**
+     * @var LoginForm
+     */
+    private $form;
 
-    public function __construct(CustomerRepositoryInterface $repository, TemplateRendererInterface $template)
-    {
+    public function __construct(
+        CustomerRepositoryInterface $repository,
+        TemplateRendererInterface $template,
+        LoginForm $form
+    ) {
         $this->template = $template;
         $this->repository = $repository;
+        $this->form = $form;
     }
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next = null)
     {
-        return new HtmlResponse($this->template->render('app::login'));
+        return new HtmlResponse($this->template->render('app::login', [
+            'form' => $this->form
+        ]));
     }
 }
