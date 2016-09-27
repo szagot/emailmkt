@@ -37,6 +37,17 @@ class LoginPageAction
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next = null)
     {
+        // Teve postagem?
+        if ($request->getMethod() == 'POST') {
+            $dataRaw = $request->getParsedBody();
+            $this->form->setData($dataRaw);
+
+            // Form válido?
+            if ($this->form->isValid()) {
+
+            }
+        }
+
         return new HtmlResponse($this->template->render('app::login', [
             'form' => $this->form
         ]));
