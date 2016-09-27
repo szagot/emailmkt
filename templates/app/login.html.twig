@@ -20,6 +20,8 @@
         <div class="col-md-5">
             <div class="box box-success">
 
+                {{ form().openTag(form) | raw }}
+
                 <div class="box-body">
 
                     {% set msg = formElementErrors(email, { class: 'help-block' }) %}
@@ -41,6 +43,7 @@
                         </div>
                         {{ msg | raw }}
                     </div>
+
                 </div>
 
                 <div class="box-footer">
@@ -48,6 +51,7 @@
                 </div>
 
                 {{ form().closeTag() | raw }}
+
             </div>
         </div>
     </div>
