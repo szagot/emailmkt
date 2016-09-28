@@ -3,7 +3,7 @@
 
 return [
     'doctrine' => [
-        'connection' => [
+        'connection'     => [
             'orm_default' => [
                 'driverClass' => \Doctrine\DBAL\Driver\PDOMySql\Driver::class,
                 'params'      => [
@@ -14,11 +14,11 @@ return [
                     'dbname'        => 'homestead',
                     'driverOptions' => [
                         \PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES "UTF8"'
-                    ]
-                ]
-            ]
+                    ],
+                ],
+            ],
         ],
-        'driver'     => [
+        'driver'         => [
             'EmailMKT_driver' => [
                 'class' => \Doctrine\ORM\Mapping\Driver\YamlDriver::class,
                 'cache' => 'array',
@@ -27,8 +27,20 @@ return [
             'orm_default'     => [
                 'drivers' => [
                     'EmailMKT\Domain\Entity' => 'EmailMKT_driver'
-                ]
-            ]
-        ]
+                ],
+            ],
+        ],
+        // Autenticação do sistema
+        'authentication' => [
+            'orm_default' => [
+                'object_manager'      => Doctrine\ORM\EntityManager::class,
+                // Entidade de usuário
+                'identity_class'      => EmailMKT\Domain\Entity\User::class,
+                // Campo de identificação
+                'identity_property'   => 'email',
+                // Campo de Senha
+                'credential_property' => 'password',
+            ],
+        ],
     ],
 ];

@@ -8,6 +8,7 @@ use EmailMKT\Infrastructure\Service\FlashMessageFactory;
 use Zend\Expressive\Application;
 use Zend\Expressive\Container\ApplicationFactory;
 use Zend\Expressive\Helper;
+use Zend\Authentication\AuthenticationService;
 
 return [
     // Provides application-wide services.
@@ -37,8 +38,10 @@ return [
             CustomerRepositoryInterface::class => CustomerRepositoryFactory::class,
         ],
         'aliases'    => [
-            'Configuration' => 'config',
-            'Config'        => 'config',
+            'Configuration'              => 'config',
+            'Config'                     => 'config',
+            // Serviço de autenticação
+            AuthenticationService::class => 'doctrine.authenticationservice.orm_default',
         ],
     ],
 ];
