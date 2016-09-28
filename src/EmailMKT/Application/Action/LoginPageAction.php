@@ -3,18 +3,20 @@
 namespace EmailMKT\Application\Action;
 
 use EmailMKT\Application\Form\LoginForm;
-use EmailMKT\Domain\Persistence\CustomerRepositoryInterface;
+use EmailMKT\Domain\Service\AuthInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
+use Zend\Diactoros\Response\RedirectResponse;
+use Zend\Expressive\Router\RouterInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
 
 class LoginPageAction
 {
     /**
-     * @var CustomerRepositoryInterface
+     * @var RouterInterface
      */
-    private $repository;
+    private $router;
 
     /**
      * @var TemplateRendererInterface
@@ -24,15 +26,21 @@ class LoginPageAction
      * @var LoginForm
      */
     private $form;
+    /**
+     * @var AuthInterface
+     */
+    private $authService;
 
     public function __construct(
-        CustomerRepositoryInterface $repository,
+        RouterInterface $router,
         TemplateRendererInterface $template,
-        LoginForm $form
+        LoginForm $form,
+        AuthInterface $authService
     ) {
         $this->template = $template;
-        $this->repository = $repository;
+        $this->router = $router;
         $this->form = $form;
+        $this->authService = $authService;
     }
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next = null)
@@ -44,7 +52,16 @@ class LoginPageAction
 
             // Form válido?
             if ($this->form->isValid()) {
+                $user = $this->form->getData();
 
+                // Está autenticado?
+                if ($this->authService->authenticate($user[ 'email' ], $user[ 'password' ])) {
+                    // Pega a uri da listagem
+                    $uri = $this->router->generateUri('customers.list');
+
+                    // Redireciona para a listagem
+                    return new RedirectResponse($uri);
+                }
             }
         }
 

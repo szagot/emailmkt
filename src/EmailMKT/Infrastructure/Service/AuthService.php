@@ -2,6 +2,7 @@
 namespace EmailMKT\Infrastructure\Service;
 
 use EmailMKT\Domain\Service\AuthInterface;
+use Zend\Authentication\Adapter\ValidatableAdapterInterface;
 use Zend\Authentication\AuthenticationService;
 
 class AuthService implements AuthInterface
@@ -18,7 +19,22 @@ class AuthService implements AuthInterface
 
     public function authenticate($email, $password)
     {
-        // TODO: Implement authenticate() method.
+        /**
+         * Adaptador de validação de dados
+         *
+         * @var ValidatableAdapterInterface $adapter
+         */
+        $adapter = $this->authenticationService->getAdapter();
+
+        // Atribuindo dados passados
+        $adapter->setIdentity($email);
+        $adapter->setCredential($password);
+
+        // Verificando autenticação
+        $result = $this->authenticationService->authenticate();
+
+        // Retornando se foi validado
+        return $result->isValid();
     }
 
     public function isAuth()

@@ -4,6 +4,7 @@ use EmailMKT\Domain\Service\FlashMessageInterface;
 
 use EmailMKT\Infrastructure\Persistence\Doctrine\Repository\CustomerRepositoryFactory;
 use EmailMKT\Infrastructure\Service\FlashMessageFactory;
+use EmailMKT\Infrastructure\Service;
 
 use Zend\Expressive\Application;
 use Zend\Expressive\Container\ApplicationFactory;
@@ -33,6 +34,9 @@ return [
 
             // Fixtures: https://github.com/codeedu/zendexpr-doctrine-fixture
             'doctrine:fixtures_cmd:load'       => CodeEdu\FixtureFactory::class,
+
+            // Authenticate
+            Service\AuthService::class         => Service\AuthServiceFactory::class,
 
             // Dependencias das entidades
             CustomerRepositoryInterface::class => CustomerRepositoryFactory::class,
