@@ -33,6 +33,6 @@ EmailMKT\Domain\Entity\User:
       length: 60
 
   # Callbacks
-  lifeCicleCallbacks:
+  lifecycleCallbacks:
     # Antes de persistir os dados, execute os seguintes métodos
     prePersist: [ generatePassword ]
