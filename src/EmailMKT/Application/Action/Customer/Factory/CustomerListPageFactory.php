@@ -2,16 +2,16 @@
 
 namespace EmailMKT\Application\Action\Customer\Factory;
 
-use EmailMKT\Application\Action\Customer\CustomerListAction;
+use EmailMKT\Application\Action\Customer\CustomerListPageAction;
 use EmailMKT\Domain\Persistence\CustomerRepositoryInterface;
 use Interop\Container\ContainerInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
 
-class CustomerListFactory
+class CustomerListPageFactory
 {
     public function __invoke(ContainerInterface $container)
     {
-        return new CustomerListAction(
+        return new CustomerListPageAction(
             $container->get(CustomerRepositoryInterface::class),
             $container->get(TemplateRendererInterface::class)
         );

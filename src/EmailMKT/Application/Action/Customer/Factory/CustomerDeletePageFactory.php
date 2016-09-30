@@ -2,18 +2,18 @@
 
 namespace EmailMKT\Application\Action\Customer\Factory;
 
-use EmailMKT\Application\Action\Customer\CustomerDeleteAction;
+use EmailMKT\Application\Action\Customer\CustomerDeletePageAction;
 use EmailMKT\Application\Form\CustomerForm;
 use EmailMKT\Domain\Persistence\CustomerRepositoryInterface;
 use Interop\Container\ContainerInterface;
 use Zend\Expressive\Router\RouterInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
 
-class CustomerDeleteFactory
+class CustomerDeletePageFactory
 {
     public function __invoke(ContainerInterface $container)
     {
-        return new CustomerDeleteAction(
+        return new CustomerDeletePageAction(
             $container->get(CustomerRepositoryInterface::class),
             $container->get(TemplateRendererInterface::class),
             $container->get(RouterInterface::class),

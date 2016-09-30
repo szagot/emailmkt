@@ -14,7 +14,7 @@ use Zend\Diactoros\Response\RedirectResponse;
 use Zend\Expressive\Router\RouterInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
 
-class CustomerDeleteAction
+class CustomerUpdatePageAction
 {
     /**
      * @var CustomerRepositoryInterface
@@ -64,23 +64,33 @@ class CustomerDeleteAction
         }
 
         // Iniciando formulário e ligando ele com a entidade, acrescentando o campo de metodo
-        $this->form->add(new HttpMethodElement(HttpMethodElement::DEL));
+        $this->form->add(new HttpMethodElement(HttpMethodElement::PUT));
         $this->form->bind($entity);
 
         // Verifica se houve uma postagem
-        if ($request->getMethod() == 'DELETE') {
-            // Remove o contato do BD
-            $this->repository->remove($entity);
+        if ($request->getMethod() == 'PUT') {
+            // Pega todos os dados da requisição
+            $dataRaw = $request->getParsedBody();
 
-            // Atribui uma flash Message
-            $flash = $request->getAttribute('flash');
-            $flash->setMessage(FlashMessageInterface::MESSAGE_SUCCESS, 'Contato apagado com sucesso');
+            // Validando form
+            $this->form->setData($dataRaw);
+            if ($this->form->isValid()) {
+                // Pega a entidade já com os dados do form hidratados (vide CustomerForm)
+                $entity = $this->form->getData();
 
-            // Redireciona para a listagem
-            return new RedirectResponse($uri);
+                // Atualiza o contato no BD
+                $this->repository->update($entity);
+
+                // Atribui uma flash Message
+                $flash = $request->getAttribute('flash');
+                $flash->setMessage(FlashMessageInterface::MESSAGE_SUCCESS, 'Contato Alterado com sucesso');
+
+                // Redireciona para a listagem
+                return new RedirectResponse($uri);
+            }
         }
 
-        return new HtmlResponse($this->template->render('app::customer/delete',
+        return new HtmlResponse($this->template->render('app::customer/update',
             ['form' => $this->form]
         ));
     }

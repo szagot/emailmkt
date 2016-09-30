@@ -3,6 +3,7 @@
 namespace EmailMKT\Application\Action\Customer;
 
 use EmailMKT\Application\Form\CustomerForm;
+use EmailMKT\Application\Form\HttpMethodElement;
 use EmailMKT\Domain\Entity\Customer;
 use EmailMKT\Domain\Persistence\CustomerRepositoryInterface;
 use EmailMKT\Domain\Service\FlashMessageInterface;
@@ -12,9 +13,8 @@ use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Diactoros\Response\RedirectResponse;
 use Zend\Expressive\Router\RouterInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
-use Zend\View\HelperPluginManager;
 
-class CustomerCreateAction
+class CustomerDeletePageAction
 {
     /**
      * @var CustomerRepositoryInterface
@@ -29,10 +29,6 @@ class CustomerCreateAction
      * @var RouterInterface
      */
     private $router;
-    /**
-     * @var HelperPluginManager
-     */
-    private $helperManager;
     /**
      * @var CustomerForm
      */
@@ -52,36 +48,40 @@ class CustomerCreateAction
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next = null)
     {
-        // Verifica se houve uma postagem
-        if ($request->getMethod() == 'POST') {
-            // Pega todos os dados da requisição
-            $dataRaw = $request->getParsedBody();
+        // Pega id
+        $id = $request->getAttribute('id');
 
-            // Tarefa: Verificar se usuário já existe
+        /** @var Customer $entity */
+        $entity = $this->repository->find($id);
 
-            // Validando form
-            $this->form->setData($dataRaw);
-            if ($this->form->isValid()) {
-                // Pega a entidade já com os dados do form hidratados (vide CustomerForm)
-                $entity = $this->form->getData();
+        // Pega a uri da listagem
+        $uri = $this->router->generateUri('customers.list');
 
-                // Cria o contato no BD
-                $this->repository->create($entity);
-
-                // Atribui uma flash Message
-                $flash = $request->getAttribute('flash');
-                $flash->setMessage(FlashMessageInterface::MESSAGE_SUCCESS, 'Contato Cadastrado com sucesso');
-
-                // Pega a uri da listagem
-                $uri = $this->router->generateUri('customers.list');
-
-                // Redireciona para a listagem
-                return new RedirectResponse($uri);
-            }
+        // Verifica se o contato existe
+        if (! $entity) {
+            // Redireciona para a listagem
+            return new RedirectResponse($uri);
         }
 
-        return new HtmlResponse($this->template->render('app::customer/create', [
-            'form' => $this->form
-        ]));
+        // Iniciando formulário e ligando ele com a entidade, acrescentando o campo de metodo
+        $this->form->add(new HttpMethodElement(HttpMethodElement::DEL));
+        $this->form->bind($entity);
+
+        // Verifica se houve uma postagem
+        if ($request->getMethod() == 'DELETE') {
+            // Remove o contato do BD
+            $this->repository->remove($entity);
+
+            // Atribui uma flash Message
+            $flash = $request->getAttribute('flash');
+            $flash->setMessage(FlashMessageInterface::MESSAGE_SUCCESS, 'Contato apagado com sucesso');
+
+            // Redireciona para a listagem
+            return new RedirectResponse($uri);
+        }
+
+        return new HtmlResponse($this->template->render('app::customer/delete',
+            ['form' => $this->form]
+        ));
     }
 }

@@ -9,7 +9,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Expressive\Template\TemplateRendererInterface;
 
-class CustomerListAction
+class CustomerListPageAction
 {
     /**
      * @var CustomerRepositoryInterface

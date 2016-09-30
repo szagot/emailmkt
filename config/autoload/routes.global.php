@@ -9,17 +9,17 @@ return [
         ],
 
         'factories' => [
-            Action\HomePageAction::class         => Action\HomePageFactory::class,
+            Action\HomePageAction::class             => Action\HomePageFactory::class,
 
             // Login/Logout
-            Action\LoginPageAction::class        => Action\LoginPageFactory::class,
-            Action\LogoutAction::class           => Action\LogoutFactory::class,
+            Action\LoginPageAction::class            => Action\LoginPageFactory::class,
+            Action\LogoutAction::class               => Action\LogoutFactory::class,
 
             // Customers
-            Customer\CustomerListAction::class   => Customer\Factory\CustomerListFactory::class,
-            Customer\CustomerCreateAction::class => Customer\Factory\CustomerCreateFactory::class,
-            Customer\CustomerUpdateAction::class => Customer\Factory\CustomerUpdateFactory::class,
-            Customer\CustomerDeleteAction::class => Customer\Factory\CustomerDeleteFactory::class,
+            Customer\CustomerListPageAction::class   => Customer\Factory\CustomerListPageFactory::class,
+            Customer\CustomerCreatePageAction::class => Customer\Factory\CustomerCreatePageFactory::class,
+            Customer\CustomerUpdatePageAction::class => Customer\Factory\CustomerUpdatePageFactory::class,
+            Customer\CustomerDeletePageAction::class => Customer\Factory\CustomerDeletePageFactory::class,
         ],
     ],
 
@@ -49,7 +49,7 @@ return [
         [
             'name'            => 'customers.list',
             'path'            => '/admin/customers{/order,type}',
-            'middleware'      => Customer\CustomerListAction::class,
+            'middleware'      => Customer\CustomerListPageAction::class,
             'allowed_methods' => ['GET'],
             'options'         => [
                 'tokens' => [
@@ -62,13 +62,13 @@ return [
         [
             'name'            => 'customer.create',
             'path'            => '/admin/customer/new',
-            'middleware'      => Customer\CustomerCreateAction::class,
+            'middleware'      => Customer\CustomerCreatePageAction::class,
             'allowed_methods' => ['GET', 'POST'],
         ],
         [
             'name'            => 'customer.update',
             'path'            => '/admin/customer/{id}',
-            'middleware'      => Customer\CustomerUpdateAction::class,
+            'middleware'      => Customer\CustomerUpdatePageAction::class,
             'allowed_methods' => ['GET', 'PUT'],
             'options'         => [
                 'tokens' => [
@@ -79,7 +79,7 @@ return [
         [
             'name'            => 'customer.delete',
             'path'            => '/admin/customer/{id}/delete',
-            'middleware'      => Customer\CustomerDeleteAction::class,
+            'middleware'      => Customer\CustomerDeletePageAction::class,
             'allowed_methods' => ['GET', 'DELETE'],
             'options'         => [
                 'tokens' => [
