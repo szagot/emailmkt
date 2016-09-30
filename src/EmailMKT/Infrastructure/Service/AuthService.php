@@ -17,6 +17,14 @@ class AuthService implements AuthInterface
         $this->authenticationService = $authenticationService;
     }
 
+    /**
+     * Autentica os dados de acesso
+     *
+     * @param $email
+     * @param $password
+     *
+     * @return bool
+     */
     public function authenticate($email, $password)
     {
         /**
@@ -47,8 +55,11 @@ class AuthService implements AuthInterface
         // TODO: Implement getUser() method.
     }
 
+    /**
+     * Logout
+     */
     public function destroy()
     {
-        // TODO: Implement destroy() method.
+        $this->authenticationService->clearIdentity();
     }
 }

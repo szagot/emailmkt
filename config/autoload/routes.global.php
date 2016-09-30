@@ -13,6 +13,7 @@ return [
 
             // Login/Logout
             Action\LoginPageAction::class        => Action\LoginPageFactory::class,
+            Action\LogoutAction::class           => Action\LogoutFactory::class,
 
             // Customers
             Customer\CustomerListAction::class   => Customer\Factory\CustomerListFactory::class,
@@ -36,6 +37,12 @@ return [
             'path'            => '/admin/login',
             'middleware'      => Action\LoginPageAction::class,
             'allowed_methods' => ['GET', 'POST'],
+        ],
+        [
+            'name'            => 'auth.logout',
+            'path'            => '/admin/logout',
+            'middleware'      => Action\LogoutAction::class,
+            'allowed_methods' => ['GET'],
         ],
 
         // Customers
