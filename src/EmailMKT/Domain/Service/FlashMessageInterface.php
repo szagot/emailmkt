@@ -6,6 +6,9 @@ namespace EmailMKT\Domain\Service;
 
 interface FlashMessageInterface
 {
+    const MESSAGE_SUCCESS = 0;
+    const MESSAGE_ERROR = 1;
+
     /**
      * Cria um namespace (um container) na nossa seção
      *

@@ -5,6 +5,7 @@ namespace EmailMKT\Application\Action\Customer;
 use EmailMKT\Application\Form\CustomerForm;
 use EmailMKT\Domain\Entity\Customer;
 use EmailMKT\Domain\Persistence\CustomerRepositoryInterface;
+use EmailMKT\Domain\Service\FlashMessageInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
@@ -69,7 +70,7 @@ class CustomerCreateAction
 
                 // Atribui uma flash Message
                 $flash = $request->getAttribute('flash');
-                $flash->setMessage('success', 'Contato Cadastrado com sucesso');
+                $flash->setMessage(FlashMessageInterface::MESSAGE_SUCCESS, 'Contato Cadastrado com sucesso');
 
                 // Pega a uri da listagem
                 $uri = $this->router->generateUri('customers.list');

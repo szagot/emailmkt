@@ -3,6 +3,7 @@
 namespace EmailMKT\Application\Action\Customer;
 
 use EmailMKT\Domain\Persistence\CustomerRepositoryInterface;
+use EmailMKT\Domain\Service\FlashMessageInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
@@ -35,9 +36,16 @@ class CustomerListAction
         // Pegando todos os Contatos
         $customers = $this->repository->findAll($orderField, $orderType);
 
+        // Pega tipo Mensagem
+        $eErro = ! empty($request->getAttribute('flash')->getMessage(FlashMessageInterface::MESSAGE_ERROR));
+        $msg = $eErro ?
+            $request->getAttribute('flash')->getMessage(FlashMessageInterface::MESSAGE_ERROR) :
+            $request->getAttribute('flash')->getMessage(FlashMessageInterface::MESSAGE_SUCCESS);
+
         $data = [
             'customers' => $customers,
-            'msg'       => $request->getAttribute('flash')->getMessage('success'),
+            'msg'       => $msg,
+            'msgError'  => $eErro,
             'order'     => [
                 'field' => $orderField,
                 'type'  => $orderType,

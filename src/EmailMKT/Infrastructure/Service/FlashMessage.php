@@ -2,60 +2,62 @@
 
 namespace EmailMKT\Infrastructure\Service;
 
-use Aura\Session\Segment;
-use Aura\Session\Session;
 use EmailMKT\Domain\Service\FlashMessageInterface;
+use Zend\Mvc\Controller\Plugin\FlashMessenger;
 
 class FlashMessage implements FlashMessageInterface
 {
     /**
-     * @var Session
+     * @var FlashMessenger
      */
-    private $session;
+    private $flashMessenger;
 
-    /**
-     * @var Segment
-     */
-    private $segment;
-
-    public function __construct(Session $session)
+    public function __construct(FlashMessenger $flashMessenger)
     {
-        $this->session = $session;
-
-        // A sessão foi iniciada?
-        if (! $this->session->isStarted()) {
-            $this->session->start();
-        }
+        $this->flashMessenger = $flashMessenger;
     }
 
     public function setNamespace($namespace = __NAMESPACE__)
     {
         // Pega (ou cria, se ainda não existir) um segmento de seção
-        $this->segment = $this->session->getSegment($namespace);
+        $this->flashMessenger->setNamespace($namespace);
 
         return $this;
     }
 
     public function setMessage($key, $value)
     {
-        // Se o segmento não existir, cria um segmento padrão
-        if (! $this->segment) {
-            $this->setNamespace();
-        }
+        // Seta a flash message de a cordo com o tipo
+        switch ($key) {
+            // Sucesso
+            case self::MESSAGE_SUCCESS:
+                $this->flashMessenger->addSuccessMessage($value);
+                break;
 
-        // Seta a flash message
-        $this->segment->setFlash($key, $value);
+            // Falha
+            case self::MESSAGE_ERROR:
+                $this->flashMessenger->addErrorMessage($value);
+                break;
+        }
 
         return $this;
     }
 
     public function getMessage($key)
     {
-        // Se o segmento não existir, cria um segmento padrão
-        if (! $this->segment) {
-            $this->setNamespace();
+        $return = [];
+        switch ($key) {
+            // Sucesso
+            case self::MESSAGE_SUCCESS:
+                $return = $this->flashMessenger->getSuccessMessages();
+                break;
+
+            // Falha
+            case self::MESSAGE_ERROR:
+                $return = $this->flashMessenger->getErrorMessages();
+                break;
         }
 
-        return $this->segment->getFlash($key);
+        return count($return) ? $return[ 0 ] : null;
     }
 }

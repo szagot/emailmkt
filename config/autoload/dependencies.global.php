@@ -28,8 +28,7 @@ return [
             Application::class                 => ApplicationFactory::class,
             Helper\UrlHelper::class            => Helper\UrlHelperFactory::class,
 
-            // Controle de seção e flash messages
-            Aura\Session\Session::class        => DaMess\Factory\AuraSessionFactory::class,
+            // Controle de flash messages
             FlashMessageInterface::class       => FlashMessageFactory::class,
 
             // Fixtures: https://github.com/codeedu/zendexpr-doctrine-fixture

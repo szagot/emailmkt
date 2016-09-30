@@ -45,6 +45,10 @@ class LoginPageAction
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next = null)
     {
+        $templateData = [
+            'form' => $this->form
+        ];
+
         // Teve postagem?
         if ($request->getMethod() == 'POST') {
             $dataRaw = $request->getParsedBody();
@@ -62,11 +66,12 @@ class LoginPageAction
                     // Redireciona para a listagem
                     return new RedirectResponse($uri);
                 }
+
+                $templateData['msg'] = 'Usuário e/ou senha inválidos';
+                $templateData['msgError'] = true;
             }
         }
 
-        return new HtmlResponse($this->template->render('app::login', [
-            'form' => $this->form
-        ]));
+        return new HtmlResponse($this->template->render('app::login', $templateData));
     }
 }

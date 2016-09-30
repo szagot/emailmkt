@@ -6,6 +6,7 @@ use EmailMKT\Application\Form\CustomerForm;
 use EmailMKT\Application\Form\HttpMethodElement;
 use EmailMKT\Domain\Entity\Customer;
 use EmailMKT\Domain\Persistence\CustomerRepositoryInterface;
+use EmailMKT\Domain\Service\FlashMessageInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
@@ -82,7 +83,7 @@ class CustomerUpdateAction
 
                 // Atribui uma flash Message
                 $flash = $request->getAttribute('flash');
-                $flash->setMessage('success', 'Contato Alterado com sucesso');
+                $flash->setMessage(FlashMessageInterface::MESSAGE_SUCCESS, 'Contato Alterado com sucesso');
 
                 // Redireciona para a listagem
                 return new RedirectResponse($uri);

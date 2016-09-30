@@ -1,15 +1,15 @@
 <?php
 namespace EmailMKT\Infrastructure\Service;
 
-use Aura\Session\Session;
 use Interop\Container\ContainerInterface;
+use Zend\Mvc\Controller\Plugin\FlashMessenger;
 
 class FlashMessageFactory
 {
     function __invoke(ContainerInterface $container)
     {
         return new FlashMessage(
-            $container->get(Session::class)
+            new FlashMessenger()
         );
     }
 
