@@ -2,7 +2,7 @@
 
 namespace EmailMKT\Application\Action;
 
-use EmailMKT\Infrastructure\Service\AuthService;
+use EmailMKT\Domain\Service\AuthInterface;
 use Interop\Container\ContainerInterface;
 use Zend\Expressive\Router\RouterInterface;
 
@@ -12,7 +12,7 @@ class LogoutFactory
     {
         return new LogoutAction(
             $container->get(RouterInterface::class),
-            $container->get(AuthService::class)
+            $container->get(AuthInterface::class)
         );
     }
 }

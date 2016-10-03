@@ -1,5 +1,6 @@
 <?php
 use EmailMKT\Domain\Persistence\CustomerRepositoryInterface;
+use EmailMKT\Domain\Service\AuthInterface;
 use EmailMKT\Domain\Service\FlashMessageInterface;
 
 use EmailMKT\Infrastructure\Persistence\Doctrine\Repository\CustomerRepositoryFactory;
@@ -35,7 +36,7 @@ return [
             'doctrine:fixtures_cmd:load'       => CodeEdu\FixtureFactory::class,
 
             // Authenticate
-            Service\AuthService::class         => Service\AuthServiceFactory::class,
+            AuthInterface::class               => Service\AuthServiceFactory::class,
 
             // Dependencias das entidades
             CustomerRepositoryInterface::class => CustomerRepositoryFactory::class,

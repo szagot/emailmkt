@@ -6,11 +6,11 @@ use Zend\Expressive\Helper;
 return [
     'dependencies'        => [
         'factories' => [
-            Helper\ServerUrlMiddleware::class     => Helper\ServerUrlMiddlewareFactory::class,
-            Helper\UrlHelperMiddleware::class     => Helper\UrlHelperMiddlewareFactory::class,
-            Middleware\BootstrapMiddleware::class => Middleware\BootstrapMiddlewareFactory::class,
-            Middleware\TwigMiddleware::class      => Middleware\TwigMiddlewareFactory::class,
-
+            Helper\ServerUrlMiddleware::class          => Helper\ServerUrlMiddlewareFactory::class,
+            Helper\UrlHelperMiddleware::class          => Helper\UrlHelperMiddlewareFactory::class,
+            Middleware\BootstrapMiddleware::class      => Middleware\BootstrapMiddlewareFactory::class,
+            Middleware\TwigMiddleware::class           => Middleware\TwigMiddlewareFactory::class,
+            Middleware\AuthenticationMiddleware::class => Middleware\AuthenticationMiddlewareFactory::class,
         ],
     ],
     // This can be used to seed pre- and/or post-routing middleware
@@ -36,7 +36,9 @@ return [
         // defined in multiple configuration files/locations. This file defines
         // some conventional keys for middleware to execute early, routing
         // middleware, and error middleware.
-        'always' => [
+
+        // Este sempre é executado, coloque aqui os middleware de estrutura
+        'always'  => [
             'middleware' => [
                 // Add more middleware here that you want to execute on
                 // every request:
@@ -50,6 +52,16 @@ return [
             'priority'   => 10000,
         ],
 
+        // Pipeline para proteção
+        'admin'   => [
+            // Qual o path de base a ser protegido
+            'path'       => '/admin',
+            'middleware' => [
+                Middleware\AuthenticationMiddleware::class
+            ],
+        ],
+
+        // É executado pra ter a estrutura de rotas montada
         'routing' => [
             'middleware' => [
                 ApplicationFactory::ROUTING_MIDDLEWARE,

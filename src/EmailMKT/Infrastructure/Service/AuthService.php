@@ -45,14 +45,22 @@ class AuthService implements AuthInterface
         return $result->isValid();
     }
 
+    /**
+     * Retorna se está autenticado
+     *
+     * @return bool
+     */
     public function isAuth()
     {
-        // TODO: Implement isAuth() method.
+        return ! is_null($this->getUser());
     }
 
+    /**
+     * Retorna a instância do usuário se tiver autenticado
+     */
     public function getUser()
     {
-        // TODO: Implement getUser() method.
+        return $this->authenticationService->getIdentity();
     }
 
     /**
