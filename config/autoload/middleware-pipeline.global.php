@@ -52,13 +52,14 @@ return [
             'priority'   => 10000,
         ],
 
-        // Pipeline para proteção
+        // Pipeline para proteção a ser executada depois dos middlewares 'always'
         'admin'   => [
             // Qual o path de base a ser protegido
             'path'       => '/admin',
             'middleware' => [
                 Middleware\AuthenticationMiddleware::class
             ],
+            'priority' => 9999,
         ],
 
         // É executado pra ter a estrutura de rotas montada
@@ -76,6 +77,7 @@ return [
             'priority'   => 1,
         ],
 
+        // É executado para casos de erro
         'error' => [
             'middleware' => [
                 // Add error middleware here.
