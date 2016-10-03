@@ -29,7 +29,8 @@ $forms = [
 
         ],
         'factories'  => [
-
+            // Helper para pegar o usuário logado
+            'identity' => View\Helper\Service\IdentityFactory::class
         ],
     ],
 ];
