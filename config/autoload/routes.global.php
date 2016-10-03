@@ -34,13 +34,13 @@ return [
         // Login/Logout
         [
             'name'            => 'auth.login',
-            'path'            => '/auth/login',
+            'path'            => '/admin/login',
             'middleware'      => Action\LoginPageAction::class,
             'allowed_methods' => ['GET', 'POST'],
         ],
         [
             'name'            => 'auth.logout',
-            'path'            => '/auth/logout',
+            'path'            => '/admin/logout',
             'middleware'      => Action\LogoutAction::class,
             'allowed_methods' => ['GET'],
         ],

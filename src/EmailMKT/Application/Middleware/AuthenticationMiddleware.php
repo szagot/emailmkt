@@ -28,8 +28,11 @@ class AuthenticationMiddleware
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next = null)
     {
-        // Se não estiver autenticado, manda para o login
-        if (! $this->authService->isAuth()) {
+        // É alguma tela de autenticação? (Login ou Logout)
+        $eAuth = preg_match('/log(in|out)/i',$request->getUri()->getPath());
+
+        // Se não estiver autenticado, e não é a própria tela de login/logout, manda para o login
+        if (! $this->authService->isAuth() && ! $eAuth) {
             $uri = $this->router->generateUri('auth.login');
 
             return new RedirectResponse($uri);
