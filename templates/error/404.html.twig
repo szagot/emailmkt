@@ -1,13 +1,14 @@
-{% extends '@layout/default.html.twig' %}
+{% extends (identity() is not null) ? '@layout/default.html.twig' : '@layout/auth.html.twig' %}
 
 {% block title %}404 Not Found{% endblock %}
 
 {% block content %}
     <h1>Oops!</h1>
-    <h2>This is awkward.</h2>
-    <p>We encountered a 404 Not Found error.</p>
+    <h2>Algo de errado não está certo...</h2>
+    <p>Não encontramos a página que você procura.</p>
     <p>
-        You are looking for something that doesn't exist or may have moved. Check out one of the links on this page
-        or head back to <a href="{{ path('home') }}">Home</a>.
+        Pode ser que ela tenha sido movida, pilantrada, apagada, sacaneada, ou apenas te
+        trolaram mesmo. Pedimos desculpas por isso. Que tal dar uma olhadinha na
+        <a href="{{ path((identity() is not null) ? 'home' : 'auth.login') }}">Home</a>?
     </p>
 {% endblock %}

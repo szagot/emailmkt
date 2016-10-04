@@ -1,4 +1,4 @@
-{% extends '@layout/default.html.twig' %}
+{% extends '@layout/auth.html.twig' %}
 
 {% block page_header %}Login{% endblock %}
 
@@ -17,7 +17,8 @@
     {% do form.prepare() %}
 
     <div class="row">
-        <div class="col-md-5">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
             <div class="box box-success">
 
                 {{ form().openTag(form) | raw }}
@@ -54,6 +55,7 @@
 
             </div>
         </div>
+        <div class="col-md-3"></div>
     </div>
 
 {% endblock %}
