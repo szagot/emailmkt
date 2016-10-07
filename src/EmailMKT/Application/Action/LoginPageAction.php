@@ -45,6 +45,15 @@ class LoginPageAction
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next = null)
     {
+        // Uri de Redirecionamento para listagem
+        $uri = $this->router->generateUri('customers.list');
+
+        // Está autenticado?
+        if ($this->authService->isAuth()) {
+            // Redireciona para a listagem
+            return new RedirectResponse($uri);
+        }
+
         $templateData = [
             'form' => $this->form
         ];
@@ -60,15 +69,12 @@ class LoginPageAction
 
                 // Está autenticado?
                 if ($this->authService->authenticate($user[ 'email' ], $user[ 'password' ])) {
-                    // Pega a uri da listagem
-                    $uri = $this->router->generateUri('customers.list');
-
                     // Redireciona para a listagem
                     return new RedirectResponse($uri);
                 }
 
-                $templateData['msg'] = 'Usuário e/ou senha inválidos';
-                $templateData['msgError'] = true;
+                $templateData[ 'msg' ] = 'Usuário e/ou senha inválidos';
+                $templateData[ 'msgError' ] = true;
             }
         }
 
