@@ -3,6 +3,10 @@
  * Entidade de Usuário
  */
 
+// Indica ao PHP para trabalhar no modo tipado.
+// Isto é, quando indicado um tipo de variável ele deve ser obedecido.
+declare(strict_types = 1);
+
 namespace EmailMKT\Domain\Entity;
 
 class User
@@ -32,11 +36,11 @@ class User
     }
 
     /**
-     * @param mixed $name
+     * @param string $name
      *
      * @return User
      */
-    public function setName($name)
+    public function setName(string $name)
     {
         $this->name = $name;
 
@@ -52,11 +56,11 @@ class User
     }
 
     /**
-     * @param mixed $email
+     * @param string $email
      *
      * @return User
      */
-    public function setEmail($email)
+    public function setEmail(string $email)
     {
         $this->email = $email;
 
@@ -72,11 +76,11 @@ class User
     }
 
     /**
-     * @param mixed $password
+     * @param string $password
      *
      * @return User
      */
-    public function setPassword($password)
+    public function setPassword(string $password)
     {
         $this->password = $password;
 
@@ -111,7 +115,7 @@ class User
     public function generatePassword()
     {
         // Pega a senha digitada ou gera uma senha aleatória
-        $password = $this->getPlainPassword() ? $this->getPlainPassword() : uniqid();
+        $password = $this->getPlainPassword() ?? uniqid();
 
         // Gera a senha criptografado
         $this->setPassword(password_hash($password, PASSWORD_BCRYPT));

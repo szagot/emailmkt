@@ -11,7 +11,7 @@ use Zend\Expressive\Template\TemplateRendererInterface;
 
 class CustomerDeletePageFactory
 {
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container) : CustomerDeletePageAction
     {
         return new CustomerDeletePageAction(
             $container->get(CustomerRepositoryInterface::class),

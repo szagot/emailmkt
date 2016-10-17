@@ -17,7 +17,7 @@ class FlashMessage implements FlashMessageInterface
         $this->flashMessenger = $flashMessenger;
     }
 
-    public function setNamespace($namespace = __NAMESPACE__)
+    public function setNamespace(string $namespace = __NAMESPACE__) : FlashMessage
     {
         // Pega (ou cria, se ainda não existir) um segmento de seção
         $this->flashMessenger->setNamespace($namespace);
@@ -25,7 +25,7 @@ class FlashMessage implements FlashMessageInterface
         return $this;
     }
 
-    public function setMessage($key, $value)
+    public function setMessage($key, string $value) : FlashMessage
     {
         // Seta a flash message de a cordo com o tipo
         switch ($key) {

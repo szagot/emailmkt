@@ -3,6 +3,10 @@
  * Entidade de Contato
  */
 
+// Indica ao PHP para trabalhar no modo tipado.
+// Isto é, quando indicado um tipo de variável ele deve ser obedecido.
+declare(strict_types = 1);
+
 namespace EmailMKT\Domain\Entity;
 
 class Customer
@@ -28,11 +32,11 @@ class Customer
     }
 
     /**
-     * @param mixed $name
+     * @param string $name
      *
      * @return Customer
      */
-    public function setName($name)
+    public function setName(string $name)
     {
         $this->name = $name;
 
@@ -48,11 +52,11 @@ class Customer
     }
 
     /**
-     * @param mixed $email
+     * @param string $email
      *
      * @return Customer
      */
-    public function setEmail($email)
+    public function setEmail(string $email)
     {
         $this->email = $email;
 

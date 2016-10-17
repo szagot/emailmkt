@@ -6,7 +6,7 @@ use Zend\Authentication\AuthenticationService;
 
 class AuthServiceFactory
 {
-    function __invoke(ContainerInterface $container)
+    function __invoke(ContainerInterface $container) : AuthService
     {
         return new AuthService(
             $container->get(AuthenticationService::class)

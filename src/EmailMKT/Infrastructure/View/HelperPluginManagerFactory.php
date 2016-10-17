@@ -7,7 +7,7 @@ use Zend\View\Renderer\PhpRenderer;
 
 class HelperPluginManagerFactory
 {
-    function __invoke(ContainerInterface $container)
+    function __invoke(ContainerInterface $container) : HelperPluginManager
     {
         $config = $container->get('config');
         $viewHelpers = $config[ 'view_helpers' ];

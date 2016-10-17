@@ -1,6 +1,7 @@
 <?php
 namespace EmailMKT\Infrastructure\Service;
 
+use EmailMKT\Domain\Entity\User;
 use EmailMKT\Domain\Service\AuthInterface;
 use Zend\Authentication\Adapter\ValidatableAdapterInterface;
 use Zend\Authentication\AuthenticationService;
@@ -25,7 +26,7 @@ class AuthService implements AuthInterface
      *
      * @return bool
      */
-    public function authenticate($email, $password)
+    public function authenticate(string $email, string $password) : bool
     {
         /**
          * Adaptador de validação de dados
@@ -50,7 +51,7 @@ class AuthService implements AuthInterface
      *
      * @return bool
      */
-    public function isAuth()
+    public function isAuth() : bool
     {
         return ! is_null($this->getUser());
     }

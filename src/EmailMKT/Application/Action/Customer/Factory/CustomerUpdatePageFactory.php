@@ -11,7 +11,7 @@ use Zend\Expressive\Template\TemplateRendererInterface;
 
 class CustomerUpdatePageFactory
 {
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container) : CustomerUpdatePageAction
     {
         return new CustomerUpdatePageAction(
             $container->get(CustomerRepositoryInterface::class),

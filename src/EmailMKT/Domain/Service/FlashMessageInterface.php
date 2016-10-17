@@ -2,6 +2,11 @@
 /**
  * Interface de serviço para as Flash Messages
  */
+
+// Indica ao PHP para trabalhar no modo tipado.
+// Isto é, quando indicado um tipo de variável primitivo, ele deve ser obedecido.
+declare(strict_types = 1);
+
 namespace EmailMKT\Domain\Service;
 
 interface FlashMessageInterface
@@ -14,7 +19,7 @@ interface FlashMessageInterface
      *
      * @param string $namespace
      */
-    public function setNamespace($namespace);
+    public function setNamespace(string $namespace);
 
     /**
      * Seta uma flash message
@@ -22,7 +27,7 @@ interface FlashMessageInterface
      * @param        $key
      * @param string $value
      */
-    public function setMessage($key, $value);
+    public function setMessage($key, string $value);
 
     /**
      * Pega uma mensagem

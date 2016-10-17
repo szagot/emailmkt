@@ -11,7 +11,7 @@ use Zend\Expressive\Template\TemplateRendererInterface;
 
 class CustomerCreatePageFactory
 {
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container) : CustomerCreatePageAction
     {
         return new CustomerCreatePageAction(
             $container->get(CustomerRepositoryInterface::class),

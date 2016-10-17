@@ -13,7 +13,7 @@ class TwigRenderer extends ZendTwigRenderer
     /**
      * @return TwigEnvironment
      */
-    public function getTemplate()
+    public function getTemplate() : TwigEnvironment
     {
         return $this->template;
     }

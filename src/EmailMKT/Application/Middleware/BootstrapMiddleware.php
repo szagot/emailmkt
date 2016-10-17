@@ -51,8 +51,9 @@ class BootstrapMiddleware
     {
         // Pega os dados da requisição
         $data = $request->getParsedBody();
-        // Verifica se existe o campo _method
-        $method = isset($data[ '_method' ]) ? strtoupper($data[ '_method' ]) : null;
+        // Pega o método se existir e passa pra maiúsculo
+        $method = $data[ '_method' ] ?? '';
+        $method = strtoupper($method);
         // Verifica se é um método válido
         if (in_array($method, ['PUT', 'DELETE'])) {
             // Muda o método e retorna a requisição
