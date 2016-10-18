@@ -1,6 +1,6 @@
 <?php
 /**
- * Entidade de Contato
+ * Entidade de Tags (Many to Many com Tag)
  */
 
 // Indica ao PHP para trabalhar no modo tipado.
@@ -11,25 +11,24 @@ namespace EmailMKT\Domain\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 
-class Customer
+class Tag
 {
     private $id;
     private $name;
-    private $email;
 
-    // Um Costumer pode ter muitas tags
-    private $tags;
+    // Uma Tag pode ter muitos Costumers
+    private $customers;
 
     /**
-     * Customer constructor.
+     * Tag constructor.
      */
     public function __construct()
     {
-        $this->tags = new ArrayCollection();
+        $this->customers = new ArrayCollection();
     }
 
     /**
-     * @return mixed
+     * @return int|null
      */
     public function getId()
     {
@@ -47,31 +46,11 @@ class Customer
     /**
      * @param string $name
      *
-     * @return Customer
+     * @return Tag
      */
     public function setName(string $name)
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
-     * @param string $email
-     *
-     * @return Customer
-     */
-    public function setEmail(string $email)
-    {
-        $this->email = $email;
 
         return $this;
     }

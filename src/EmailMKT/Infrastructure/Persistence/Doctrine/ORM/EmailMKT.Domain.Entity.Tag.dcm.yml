@@ -1,11 +1,9 @@
 # EmailMKT.Domain.Entity.Customer.dcm.yml
-EmailMKT\Domain\Entity\Customer:
+EmailMKT\Domain\Entity\Tag:
   # Tipo: sempre entidade
   type: entity
-  # Declarando repositório personalizado
-  repositoryClass: EmailMKT\Infrastructure\Persistence\Doctrine\Repository\CustomerRepository
   # Nome da tabela do BD
-  table: customers
+  table: tags
   # Quando tiver um ID Primario
   id:
     # Nome do campo
@@ -22,15 +20,9 @@ EmailMKT\Domain\Entity\Customer:
     name:
       type: string
       length: 150
-      # Permite null
-      nullable: true
-    # Nome do campo
-    email:
-      type: string
-      length: 150
 
   #Relacionamento Muitos para Muitos
   manyToMany:
-      tags:
-        targetEntity: EmailMKT\Domain\Entity\Tag
-        mappedBy: customers
+    customers:
+      targetEntity: EmailMKT\Domain\Entity\Customer
+      inversedBy: tags
