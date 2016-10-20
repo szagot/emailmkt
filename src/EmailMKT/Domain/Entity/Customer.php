@@ -10,6 +10,7 @@ declare(strict_types = 1);
 namespace EmailMKT\Domain\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 class Customer
 {
@@ -74,6 +75,14 @@ class Customer
         $this->email = $email;
 
         return $this;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getTags(): Collection
+    {
+        return $this->tags;
     }
 
 }
