@@ -1,11 +1,11 @@
 <?php
 
-namespace EmailMKT\Application\Action\Customer;
+namespace EmailMKT\Application\Action\Tag;
 
-use EmailMKT\Application\Form\CustomerForm;
+use EmailMKT\Application\Form\TagForm;
 use EmailMKT\Application\Form\HttpMethodElement;
-use EmailMKT\Domain\Entity\Customer;
-use EmailMKT\Domain\Persistence\CustomerRepositoryInterface;
+use EmailMKT\Domain\Entity\Tag;
+use EmailMKT\Domain\Persistence\TagRepositoryInterface;
 use EmailMKT\Domain\Service\FlashMessageInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -14,10 +14,10 @@ use Zend\Diactoros\Response\RedirectResponse;
 use Zend\Expressive\Router\RouterInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
 
-class CustomerDeletePageAction
+class TagUpdatePageAction
 {
     /**
-     * @var CustomerRepositoryInterface
+     * @var TagRepositoryInterface
      */
     private $repository;
 
@@ -30,15 +30,15 @@ class CustomerDeletePageAction
      */
     private $router;
     /**
-     * @var CustomerForm
+     * @var TagForm
      */
     private $form;
 
     public function __construct(
-        CustomerRepositoryInterface $repository,
+        TagRepositoryInterface $repository,
         TemplateRendererInterface $template,
         RouterInterface $router,
-        CustomerForm $form
+        TagForm $form
     ) {
         $this->template = $template;
         $this->repository = $repository;
@@ -51,11 +51,11 @@ class CustomerDeletePageAction
         // Pega id
         $id = $request->getAttribute('id');
 
-        /** @var Customer $entity */
+        /** @var Tag $entity */
         $entity = $this->repository->find($id);
 
         // Pega a uri da listagem
-        $uri = $this->router->generateUri('customer.list');
+        $uri = $this->router->generateUri('tag.list');
 
         // Verifica se o contato existe
         if (! $entity) {
@@ -64,23 +64,33 @@ class CustomerDeletePageAction
         }
 
         // Iniciando formulário e ligando ele com a entidade, acrescentando o campo de metodo
-        $this->form->add(new HttpMethodElement(HttpMethodElement::DEL));
+        $this->form->add(new HttpMethodElement(HttpMethodElement::PUT));
         $this->form->bind($entity);
 
         // Verifica se houve uma postagem
-        if ($request->getMethod() == 'DELETE') {
-            // Remove o contato do BD
-            $this->repository->remove($entity);
+        if ($request->getMethod() == 'PUT') {
+            // Pega todos os dados da requisição
+            $dataRaw = $request->getParsedBody();
 
-            // Atribui uma flash Message
-            $flash = $request->getAttribute('flash');
-            $flash->setMessage(FlashMessageInterface::MESSAGE_SUCCESS, 'Contato apagado com sucesso');
+            // Validando form
+            $this->form->setData($dataRaw);
+            if ($this->form->isValid()) {
+                // Pega a entidade já com os dados do form hidratados (vide TagForm)
+                $entity = $this->form->getData();
 
-            // Redireciona para a listagem
-            return new RedirectResponse($uri);
+                // Atualiza o contato no BD
+                $this->repository->update($entity);
+
+                // Atribui uma flash Message
+                $flash = $request->getAttribute('flash');
+                $flash->setMessage(FlashMessageInterface::MESSAGE_SUCCESS, 'Tag Alterada com sucesso');
+
+                // Redireciona para a listagem
+                return new RedirectResponse($uri);
+            }
         }
 
-        return new HtmlResponse($this->template->render('app::customer/delete',
+        return new HtmlResponse($this->template->render('app::tag/update',
             ['form' => $this->form]
         ));
     }

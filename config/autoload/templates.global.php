@@ -27,5 +27,9 @@ return [
         'extensions'     => [
             // extension service names or instances
         ],
+        'globals' => [
+            // Global variables passed to twig templates
+            # 'ga_tracking' => 'UA-XXXXX-X'
+        ],
     ],
 ];

@@ -1,6 +1,6 @@
 {% extends '@layout/default.html.twig' %}
 
-{% block page_header %}Listagem de Contatos{% endblock %}
+{% block page_header %}Listagem de Tags{% endblock %}
 
 {% block title %}{{ block("page_header") }} | {{ parent() }}{% endblock %}
 
@@ -9,7 +9,7 @@
     <div class="row">
         <div class="box">
             <div class="box-header">
-                <a class="btn btn-app" href="{{ url("customer.create") }}">
+                <a class="btn btn-app" href="{{ url("tag.create") }}">
                     <i class="fa fa-plus-circle"></i> Novo
                 </a>
             </div>
@@ -20,12 +20,12 @@
                             <th width="50" class="text-center">
                                 <a href="
                                     {% if (order.type == "asc" and order.field == 'id') or order.field is null %}
-                                        {{ url("customer.list", {order: "id", type: "desc"}) }}">
+                                        {{ url("tag.list", {order: "id", type: "desc"}) }}">
                                         {% if order.field == 'id' or order.field is null %}
                                             <i class="fa fa-sort-numeric-asc text-gray"></i>
                                         {% endif %}
                                     {% else %}
-                                        {{ url("customer.list", {order: "id", type: "asc"}) }}">
+                                        {{ url("tag.list", {order: "id", type: "asc"}) }}">
                                         {% if order.field == 'id' %}
                                             <i class="fa fa-sort-numeric-desc text-gray"></i>
                                         {% endif %}
@@ -35,51 +35,36 @@
                             <th>
                                 <a href="
                                     {% if order.type != "desc" and order.field == 'name' %}
-                                        {{ url("customer.list", {order: "name", type: "desc"}) }}">
+                                        {{ url("tag.list", {order: "name", type: "desc"}) }}">
                                         {% if order.field == 'name' %}
                                             <i class="fa fa-sort-alpha-asc text-gray"></i>
                                         {% endif %}
                                     {% else %}
-                                        {{ url("customer.list", {order: "name", type: "asc"}) }}">
+                                        {{ url("tag.list", {order: "name", type: "asc"}) }}">
                                         {% if order.field == 'name' %}
                                             <i class="fa fa-sort-alpha-desc text-gray"></i>
                                         {% endif %}
                                     {% endif %}
-                                    Nome</a>
+                                    Tag</a>
                             </th>
-                            <th>
-                                <a href="
-                                    {% if order.type != "desc" and order.field == 'email' %}
-                                        {{ url("customer.list", {order: "email", type: "desc"}) }}">
-                                        {% if order.field == 'email' %}
-                                            <i class="fa fa-sort-alpha-asc text-gray"></i>
-                                        {% endif %}
-                                    {% else %}
-                                        {{ url("customer.list", {order: "email", type: "asc"}) }}">
-                                        {% if order.field == 'email' %}
-                                            <i class="fa fa-sort-alpha-desc text-gray"></i>
-                                        {% endif %}
-                                    {% endif %}
-                                    Email</a>
-                            </th>
+                            
                             <th width="150" class="text-center">Ações</th>
                         </tr>
-                        {% for customer in customers %}
+                        {% for tag in tags %}
                             <tr>
                                 <th class="text-center">
-                                    <a href="{{ url('customer.update', {id: customer.id}) }}">
-                                        {{ customer.id }}
+                                    <a href="{{ url('tag.update', {id: tag.id}) }}">
+                                        {{ tag.id }}
                                     </a>
                                 </th>
-                                <td>{{ customer.name }}</td>
-                                <td>{{ customer.email }}</td>
+                                <td>{{ tag.name }}</td>
                                 <td class="text-center">
                                     <a class="btn btn-primary btn-xs"
-                                       href="{{ url('customer.update', {id: customer.id}) }}">
+                                       href="{{ url('tag.update', {id: tag.id}) }}">
                                         <i class="fa fa-edit"></i> Editar
                                     </a>
                                     <a class="btn btn-danger btn-xs"
-                                       href="{{ url('customer.delete', {id: customer.id}) }}">
+                                       href="{{ url('tag.delete', {id: tag.id}) }}">
                                         <i class="fa fa-trash-o"></i> Deletar
                                     </a>
                                 </td>

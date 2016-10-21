@@ -1,15 +1,15 @@
 {% extends '@layout/default.html.twig' %}
 
-{% block page_header %}Apagar o Contato - {{ form.getObject().name }}{% endblock %}
+{% block page_header %}Apagar a Tag - {{ form.getObject().name }}{% endblock %}
 
 {% block title %}{{ block("page_header") }} | {{ parent() }}{% endblock %}
 
 {% block content %}
-    {% include '@app/customer/_form-header.html.twig' %}
+    {% include '@app/tag/_form-header.html.twig' %}
 
     {% do form.get('submit').setAttribute('class', 'btn btn-danger').setLabel('<i class="fa fa-trash-o"></i> Apagar mesmo?') %}
 
-    {% do form.setAttribute('action', url('customer.delete', {id: form.getObject().id})) %}
+    {% do form.setAttribute('action', url('tag.delete', {id: form.getObject().id})) %}
     {% do form.prepare() %}
 
     <div class="row">
@@ -17,13 +17,13 @@
             <div class="box box-danger">
 
                 <fieldset disabled class="box-body">
-                    {% include '@app/customer/_form-body.html.twig' %}
+                    {% include '@app/tag/_form-body.html.twig' %}
                 </fieldset>
 
                 {{ form().openTag(form) | raw }}
                 {{ formHidden(form.get('_method')) }}
 
-                {% include '@app/customer/_form-footer.html.twig' %}
+                {% include '@app/tag/_form-footer.html.twig' %}
 
                 {{ form().closeTag() | raw }}
 

@@ -1,9 +1,9 @@
 <?php
 
-namespace EmailMKT\Application\Action\Customer;
+namespace EmailMKT\Application\Action\Tag;
 
-use EmailMKT\Application\Form\CustomerForm;
-use EmailMKT\Domain\Persistence\CustomerRepositoryInterface;
+use EmailMKT\Application\Form\TagForm;
+use EmailMKT\Domain\Persistence\TagRepositoryInterface;
 use EmailMKT\Domain\Service\FlashMessageInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -13,10 +13,10 @@ use Zend\Expressive\Router\RouterInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
 use Zend\View\HelperPluginManager;
 
-class CustomerCreatePageAction
+class TagCreatePageAction
 {
     /**
-     * @var CustomerRepositoryInterface
+     * @var TagRepositoryInterface
      */
     private $repository;
 
@@ -33,15 +33,15 @@ class CustomerCreatePageAction
      */
     private $helperManager;
     /**
-     * @var CustomerForm
+     * @var TagForm
      */
     private $form;
 
     public function __construct(
-        CustomerRepositoryInterface $repository,
+        TagRepositoryInterface $repository,
         TemplateRendererInterface $template,
         RouterInterface $router,
-        CustomerForm $form
+        TagForm $form
     ) {
         $this->template = $template;
         $this->repository = $repository;
@@ -61,7 +61,7 @@ class CustomerCreatePageAction
             // Validando form
             $this->form->setData($dataRaw);
             if ($this->form->isValid()) {
-                // Pega a entidade já com os dados do form hidratados (vide CustomerForm)
+                // Pega a entidade já com os dados do form hidratados (vide TagForm)
                 $entity = $this->form->getData();
 
                 // Cria o contato no BD
@@ -69,17 +69,17 @@ class CustomerCreatePageAction
 
                 // Atribui uma flash Message
                 $flash = $request->getAttribute('flash');
-                $flash->setMessage(FlashMessageInterface::MESSAGE_SUCCESS, 'Contato Cadastrado com sucesso');
+                $flash->setMessage(FlashMessageInterface::MESSAGE_SUCCESS, 'Tag Cadastrada com sucesso');
 
                 // Pega a uri da listagem
-                $uri = $this->router->generateUri('customer.list');
+                $uri = $this->router->generateUri('tag.list');
 
                 // Redireciona para a listagem
                 return new RedirectResponse($uri);
             }
         }
 
-        return new HtmlResponse($this->template->render('app::customer/create', [
+        return new HtmlResponse($this->template->render('app::tag/create', [
             'form' => $this->form
         ]));
     }

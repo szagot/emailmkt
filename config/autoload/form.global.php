@@ -6,10 +6,10 @@
 use Zend\View;
 use EmailMKT\Infrastructure;
 use EmailMKT\Application\Form\{
-    CustomerForm, LoginForm
+    CustomerForm, LoginForm, UserForm, TagForm
 };
 use EmailMKT\Application\Form\Factory\{
-    CustomerFormFactory, LoginFormFactory
+    CustomerFormFactory, LoginFormFactory, UserFormFactory, TagFormFactory
 };
 
 $forms = [
@@ -24,6 +24,8 @@ $forms = [
             View\HelperPluginManager::class => Infrastructure\View\HelperPluginManagerFactory::class,
             LoginForm::class                => LoginFormFactory::class,
             CustomerForm::class             => CustomerFormFactory::class,
+            UserForm::class                 => UserFormFactory::class,
+            TagForm::class                  => TagFormFactory::class,
         ],
     ],
     'view_helpers' => [

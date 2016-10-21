@@ -2,6 +2,8 @@
 EmailMKT\Domain\Entity\Tag:
   # Tipo: sempre entidade
   type: entity
+  # Declarando repositório personalizado
+  repositoryClass: EmailMKT\Infrastructure\Persistence\Doctrine\Repository\TagRepository
   # Nome da tabela do BD
   table: tags
   # Quando tiver um ID Primario

@@ -3,7 +3,7 @@ EmailMKT\Domain\Entity\User:
   # Tipo: sempre entidade
   type: entity
   # Declarando repositório personalizado
-  #repositoryClass: EmailMKT\Infrastructure\Persistence\Doctrine\Repository\CustomerRepository
+  repositoryClass: EmailMKT\Infrastructure\Persistence\Doctrine\Repository\UserRepository
   # Nome da tabela do BD
   table: users
   # Quando tiver um ID Primario

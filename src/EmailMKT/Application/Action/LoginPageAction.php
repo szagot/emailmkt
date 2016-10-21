@@ -46,7 +46,7 @@ class LoginPageAction
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next = null)
     {
         // Uri de Redirecionamento para listagem
-        $uri = $this->router->generateUri('customers.list');
+        $uri = $this->router->generateUri('customer.list');
 
         // Está autenticado?
         if ($this->authService->isAuth()) {

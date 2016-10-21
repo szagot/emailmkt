@@ -10,6 +10,12 @@ interface RepositoryInterface
 
     public function remove($entity);
 
+    /**
+     * Localiza pelo ID
+     * @param $id
+     *
+     * @return mixed
+     */
     public function find($id);
 
     /**

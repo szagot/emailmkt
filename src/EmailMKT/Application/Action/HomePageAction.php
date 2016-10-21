@@ -24,7 +24,7 @@ class HomePageAction
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next = null)
     {
-        $uri = $this->router->generateUri('customers.list');
+        $uri = $this->router->generateUri('customer.list');
         return new RedirectResponse($uri);
     }
 }

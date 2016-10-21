@@ -1,9 +1,17 @@
 <?php
-use EmailMKT\Domain\Persistence\CustomerRepositoryInterface;
+use EmailMKT\Domain\Persistence\{
+    CustomerRepositoryInterface,
+    TagRepositoryInterface,
+    UserRepositoryInterface
+};
 use EmailMKT\Domain\Service\AuthInterface;
 use EmailMKT\Domain\Service\FlashMessageInterface;
 
-use EmailMKT\Infrastructure\Persistence\Doctrine\Repository\CustomerRepositoryFactory;
+use EmailMKT\Infrastructure\Persistence\Doctrine\Repository\{
+    CustomerRepositoryFactory,
+    UserRepositoryFactory,
+    TagRepositoryFactory
+};
 use EmailMKT\Infrastructure\Service\FlashMessageFactory;
 use EmailMKT\Infrastructure\Service;
 
@@ -40,6 +48,8 @@ return [
 
             // Dependencias das entidades
             CustomerRepositoryInterface::class => CustomerRepositoryFactory::class,
+            UserRepositoryInterface::class     => UserRepositoryFactory::class,
+            TagRepositoryInterface::class      => TagRepositoryFactory::class,
         ],
         'aliases'    => [
             'Configuration'              => 'config',

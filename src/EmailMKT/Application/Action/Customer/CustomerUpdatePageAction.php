@@ -55,7 +55,7 @@ class CustomerUpdatePageAction
         $entity = $this->repository->find($id);
 
         // Pega a uri da listagem
-        $uri = $this->router->generateUri('customers.list');
+        $uri = $this->router->generateUri('customer.list');
 
         // Verifica se o contato existe
         if (! $entity) {
