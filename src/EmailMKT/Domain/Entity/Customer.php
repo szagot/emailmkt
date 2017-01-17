@@ -85,4 +85,30 @@ class Customer
         return $this->tags;
     }
 
+    public function addTags(Collection $tags)
+    {
+        /** @var Tag $tag */
+        foreach ($tags as $tag) {
+            // Adicionando Customer na Tag
+            $tag->getCustomers()->add($this);
+            // Adicionando Tag no Customer
+            $this->tags->add($tag);
+        }
+
+        return $this;
+    }
+
+    public function removeTags(Collection $tags)
+    {
+        /** @var Tag $tag */
+        foreach ($tags as $tag) {
+            // Removendo Customer na Tag
+            $tag->getCustomers()->removeElement($this);
+            // Removendo Tag no Customer
+            $this->tags->removeElement($tag);
+        }
+
+        return $this;
+    }
+
 }
