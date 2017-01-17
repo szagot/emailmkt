@@ -6,7 +6,7 @@ use Zend\Form\Element;
 
 class UserForm extends Form
 {
-    public function __construct($name = 'customer', array $options = [])
+    public function __construct($name = 'user', array $options = [])
     {
         parent::__construct($name, $options);
 

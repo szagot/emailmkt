@@ -36,3 +36,4 @@ EmailMKT\Domain\Entity\User:
   lifecycleCallbacks:
     # Antes de persistir os dados, execute os seguintes métodos
     prePersist: [ generatePassword ]
+    preUpdate:  [ generatePassword ]

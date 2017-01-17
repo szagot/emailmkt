@@ -19,6 +19,12 @@ use EmailMKT\Application\Action\Tag\{
 use EmailMKT\Application\Action\Tag\Factory\{
     TagListPageFactory, TagCreatePageFactory, TagDeletePageFactory, TagUpdatePageFactory
 };
+use EmailMKT\Application\Action\User\{
+    UserListPageAction, UserCreatePageAction, UserDeletePageAction, UserUpdatePageAction
+};
+use EmailMKT\Application\Action\User\Factory\{
+    UserListPageFactory, UserCreatePageFactory, UserDeletePageFactory, UserUpdatePageFactory
+};
 
 return [
     'dependencies' => [
@@ -44,6 +50,12 @@ return [
             TagCreatePageAction::class      => TagCreatePageFactory::class,
             TagUpdatePageAction::class      => TagUpdatePageFactory::class,
             TagDeletePageAction::class      => TagDeletePageFactory::class,
+
+            // Customers
+            UserListPageAction::class       => UserListPageFactory::class,
+            UserCreatePageAction::class     => UserCreatePageFactory::class,
+            UserUpdatePageAction::class     => UserUpdatePageFactory::class,
+            UserDeletePageAction::class     => UserDeletePageFactory::class,
         ],
     ],
 
@@ -160,5 +172,49 @@ return [
                 ]
             ]
         ], # delete
+
+        // User
+        [
+            'name'            => 'user.list',
+            'path'            => '/admin/users{/order,type}',
+            'middleware'      => UserListPageAction::class,
+            'allowed_methods' => ['GET'],
+            'options'         => [
+                'tokens' => [
+                    // Permite nulo ou uma das opções
+                    'order' => '(id|name|email)?',
+                    'type'  => '(asc|desc)?'
+                ]
+            ]
+        ], # List
+        [
+            'name'            => 'user.create',
+            'path'            => '/admin/user/new',
+            'middleware'      => UserCreatePageAction::class,
+            'allowed_methods' => ['GET', 'POST'],
+        ], # Create
+        [
+            'name'            => 'user.update',
+            'path'            => '/admin/user/{id}',
+            'middleware'      => UserUpdatePageAction::class,
+            'allowed_methods' => ['GET', 'PUT'],
+            'options'         => [
+                'tokens' => [
+                    'id' => '\d+'
+                ]
+            ]
+        ], # Update
+        [
+            'name'            => 'user.delete',
+            'path'            => '/admin/user/{id}/delete',
+            'middleware'      => UserDeletePageAction::class,
+            'allowed_methods' => ['GET', 'DELETE'],
+            'options'         => [
+                'tokens' => [
+                    'id' => '\d+'
+                ]
+            ]
+        ], # Delete
+
     ],
 ];

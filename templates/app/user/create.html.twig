@@ -1,0 +1,30 @@
+{% extends '@layout/default.html.twig' %}
+
+{% block page_header %}Novo Contato{% endblock %}
+
+{% block title %}{{ block("page_header") }} | {{ parent() }}{% endblock %}
+
+{% block content %}
+    {% include '@app/user/_form-header.html.twig' %}
+
+    {% do form.get('submit').setAttribute('class', 'btn btn-primary').setLabel('<i class="fa fa-check"></i> Cadastrar') %}
+
+    {% do form.setAttribute('action', url('user.create')) %}
+    {% do form.prepare() %}
+
+    <div class="row">
+        <div class="col-md-7">
+            <div class="box box-primary">
+
+                {{ form().openTag(form) | raw }}
+
+                {% include '@app/user/_form-body.html.twig' %}
+
+                {% include '@app/user/_form-footer.html.twig' %}
+
+                {{ form().closeTag() | raw }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

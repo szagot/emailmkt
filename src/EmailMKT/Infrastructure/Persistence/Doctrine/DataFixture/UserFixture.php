@@ -30,7 +30,7 @@ class UserFixture implements FixtureInterface
         $user
             ->setName('Admin')
             ->setEmail('szagot@gmail.com')
-            ->setPlainPassword('DSpider');
+            ->setPassword('DSpider');
 
         $manager->persist($user);
 
@@ -41,7 +41,7 @@ class UserFixture implements FixtureInterface
             $user
                 ->setName($faker->userName)
                 ->setEmail($faker->email)
-                ->setPlainPassword($faker->password());
+                ->setPassword($faker->password());
 
             $manager->persist($user);
         }

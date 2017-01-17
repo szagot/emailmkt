@@ -1,0 +1,94 @@
+{% extends '@layout/default.html.twig' %}
+
+{% block page_header %}Listagem de Contatos{% endblock %}
+
+{% block title %}{{ block("page_header") }} | {{ parent() }}{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="box">
+            <div class="box-header">
+                <a class="btn btn-app" href="{{ url("user.create") }}">
+                    <i class="fa fa-plus-circle"></i> Novo
+                </a>
+            </div>
+            <div class="box-body">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <th width="50" class="text-center">
+                                <a href="
+                                    {% if (order.type == "asc" and order.field == 'id') or order.field is null %}
+                                        {{ url("user.list", {order: "id", type: "desc"}) }}">
+                                        {% if order.field == 'id' or order.field is null %}
+                                            <i class="fa fa-sort-numeric-asc text-gray"></i>
+                                        {% endif %}
+                                    {% else %}
+                                        {{ url("user.list", {order: "id", type: "asc"}) }}">
+                                        {% if order.field == 'id' %}
+                                            <i class="fa fa-sort-numeric-desc text-gray"></i>
+                                        {% endif %}
+                                    {% endif %}
+                                    #</a>
+                            </th>
+                            <th>
+                                <a href="
+                                    {% if order.type != "desc" and order.field == 'name' %}
+                                        {{ url("user.list", {order: "name", type: "desc"}) }}">
+                                        {% if order.field == 'name' %}
+                                            <i class="fa fa-sort-alpha-asc text-gray"></i>
+                                        {% endif %}
+                                    {% else %}
+                                        {{ url("user.list", {order: "name", type: "asc"}) }}">
+                                        {% if order.field == 'name' %}
+                                            <i class="fa fa-sort-alpha-desc text-gray"></i>
+                                        {% endif %}
+                                    {% endif %}
+                                    Nome</a>
+                            </th>
+                            <th>
+                                <a href="
+                                    {% if order.type != "desc" and order.field == 'email' %}
+                                        {{ url("user.list", {order: "email", type: "desc"}) }}">
+                                        {% if order.field == 'email' %}
+                                            <i class="fa fa-sort-alpha-asc text-gray"></i>
+                                        {% endif %}
+                                    {% else %}
+                                        {{ url("user.list", {order: "email", type: "asc"}) }}">
+                                        {% if order.field == 'email' %}
+                                            <i class="fa fa-sort-alpha-desc text-gray"></i>
+                                        {% endif %}
+                                    {% endif %}
+                                    Email</a>
+                            </th>
+                            <th width="150" class="text-center">Ações</th>
+                        </tr>
+                        {% for user in users %}
+                            <tr>
+                                <th class="text-center">
+                                    <a href="{{ url('user.update', {id: user.id}) }}">
+                                        {{ user.id }}
+                                    </a>
+                                </th>
+                                <td>{{ user.name }}</td>
+                                <td>{{ user.email }}</td>
+                                <td class="text-center">
+                                    <a class="btn btn-primary btn-xs"
+                                       href="{{ url('user.update', {id: user.id}) }}">
+                                        <i class="fa fa-edit"></i> Editar
+                                    </a>
+                                    <a class="btn btn-danger btn-xs"
+                                       href="{{ url('user.delete', {id: user.id}) }}">
+                                        <i class="fa fa-trash-o"></i> Deletar
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

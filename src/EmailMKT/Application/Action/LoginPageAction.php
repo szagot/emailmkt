@@ -54,9 +54,7 @@ class LoginPageAction
             return new RedirectResponse($uri);
         }
 
-        $templateData = [
-            'form' => $this->form
-        ];
+        $templateData = [];
 
         // Teve postagem?
         if ($request->getMethod() == 'POST') {
@@ -77,6 +75,8 @@ class LoginPageAction
                 $templateData[ 'msgError' ] = true;
             }
         }
+
+        $templateData[ 'form' ] = $this->form;
 
         return new HtmlResponse($this->template->render('app::login', $templateData));
     }
