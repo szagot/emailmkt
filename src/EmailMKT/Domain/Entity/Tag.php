@@ -20,12 +20,16 @@ class Tag
     // Uma Tag pode ter muitos Costumers
     private $customers;
 
+    // Uma Tag pode ter muitas Campanhas
+    private $campaigns;
+
     /**
      * Tag constructor.
      */
     public function __construct()
     {
         $this->customers = new ArrayCollection();
+        $this->campaigns = new ArrayCollection();
     }
 
     /**
@@ -62,6 +66,14 @@ class Tag
     public function getCustomers(): Collection
     {
         return $this->customers;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getCampaigns(): Collection
+    {
+        return $this->campaigns;
     }
 
 

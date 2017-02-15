@@ -34,6 +34,7 @@ class TagFixture extends AbstractFixture implements FixtureInterface, OrderedFix
             $tag = new Tag();
             $tag->setName($faker->city);
             $this->addCustomers($tag);
+            $this->addCampaigns($tag);
             $manager->persist($tag);
         }
 
@@ -62,6 +63,30 @@ class TagFixture extends AbstractFixture implements FixtureInterface, OrderedFix
             }
 
             $tag->getCustomers()->add($customer);
+        }
+    }
+
+    /**
+     * Adiciona Campanhas aleatórias a tag
+     *
+     * @param Tag $tag
+     */
+    public function addCampaigns(Tag $tag)
+    {
+        $numCampaigns = rand(1, 5);
+        foreach (range(1, $numCampaigns) as $value) {
+            $index = rand(0, 99);
+            $campaign = $this->getReference("campaign-$index");
+            // Se repetiu, tenta novamente
+            if ($tag->getCampaigns()->exists(function ($key, $item) use ($campaign) {
+                return $campaign->getId() == $item->getId();
+            })
+            ) {
+                $index = rand(0, 99);
+                $campaign = $this->getReference("campaign-$index");
+            }
+
+            $tag->getCampaigns()->add($campaign);
         }
     }
 
