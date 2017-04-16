@@ -2,7 +2,8 @@
 use EmailMKT\Domain\Persistence\{
     CustomerRepositoryInterface,
     TagRepositoryInterface,
-    UserRepositoryInterface
+    UserRepositoryInterface,
+    CampaignRepositoryInterface
 };
 use EmailMKT\Domain\Service\AuthInterface;
 use EmailMKT\Domain\Service\FlashMessageInterface;
@@ -10,7 +11,8 @@ use EmailMKT\Domain\Service\FlashMessageInterface;
 use EmailMKT\Infrastructure\Persistence\Doctrine\Repository\{
     CustomerRepositoryFactory,
     UserRepositoryFactory,
-    TagRepositoryFactory
+    TagRepositoryFactory,
+    CampaignRepositoryFactory
 };
 use EmailMKT\Infrastructure\Service\FlashMessageFactory;
 use EmailMKT\Infrastructure\Service;
@@ -50,6 +52,7 @@ return [
             CustomerRepositoryInterface::class => CustomerRepositoryFactory::class,
             UserRepositoryInterface::class     => UserRepositoryFactory::class,
             TagRepositoryInterface::class      => TagRepositoryFactory::class,
+            CampaignRepositoryInterface::class => CampaignRepositoryFactory::class,
         ],
         'aliases'    => [
             'Configuration'              => 'config',

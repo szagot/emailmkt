@@ -25,6 +25,12 @@ use EmailMKT\Application\Action\User\{
 use EmailMKT\Application\Action\User\Factory\{
     UserListPageFactory, UserCreatePageFactory, UserDeletePageFactory, UserUpdatePageFactory
 };
+use EmailMKT\Application\Action\Campaign\{
+    CampaignListPageAction, CampaignCreatePageAction, CampaignDeletePageAction, CampaignUpdatePageAction
+};
+use EmailMKT\Application\Action\Campaign\Factory\{
+    CampaignListPageFactory, CampaignCreatePageFactory, CampaignDeletePageFactory, CampaignUpdatePageFactory
+};
 
 return [
     'dependencies' => [
@@ -56,6 +62,12 @@ return [
             UserCreatePageAction::class     => UserCreatePageFactory::class,
             UserUpdatePageAction::class     => UserUpdatePageFactory::class,
             UserDeletePageAction::class     => UserDeletePageFactory::class,
+
+            // Campaign
+            CampaignListPageAction::class   => CampaignListPageFactory::class,
+            CampaignCreatePageAction::class => CampaignCreatePageFactory::class,
+            CampaignUpdatePageAction::class => CampaignUpdatePageFactory::class,
+            CampaignDeletePageAction::class => CampaignDeletePageFactory::class,
         ],
     ],
 
@@ -208,6 +220,49 @@ return [
             'name'            => 'user.delete',
             'path'            => '/admin/user/{id}/delete',
             'middleware'      => UserDeletePageAction::class,
+            'allowed_methods' => ['GET', 'DELETE'],
+            'options'         => [
+                'tokens' => [
+                    'id' => '\d+'
+                ]
+            ]
+        ], # Delete
+
+        // Campaign
+        [
+            'name'            => 'campaign.list',
+            'path'            => '/admin/campaign{/order,type}',
+            'middleware'      => CampaignListPageAction::class,
+            'allowed_methods' => ['GET'],
+            'options'         => [
+                'tokens' => [
+                    // Permite nulo ou uma das opções
+                    'order' => '(id|name|email)?',
+                    'type'  => '(asc|desc)?'
+                ]
+            ]
+        ], # List
+        [
+            'name'            => 'campaign.create',
+            'path'            => '/admin/campaign/new',
+            'middleware'      => CampaignCreatePageAction::class,
+            'allowed_methods' => ['GET', 'POST'],
+        ], # Create
+        [
+            'name'            => 'campaign.update',
+            'path'            => '/admin/campaign/{id}',
+            'middleware'      => CampaignUpdatePageAction::class,
+            'allowed_methods' => ['GET', 'PUT'],
+            'options'         => [
+                'tokens' => [
+                    'id' => '\d+'
+                ]
+            ]
+        ], # Update
+        [
+            'name'            => 'campaign.delete',
+            'path'            => '/admin/campaign/{id}/delete',
+            'middleware'      => CampaignDeletePageAction::class,
             'allowed_methods' => ['GET', 'DELETE'],
             'options'         => [
                 'tokens' => [

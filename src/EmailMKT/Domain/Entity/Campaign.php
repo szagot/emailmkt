@@ -84,9 +84,9 @@ class Campaign
     {
         /** @var Tag $tag */
         foreach ($tags as $tag) {
-            // Adicionando Customer na Tag
-            $tag->getCustomers()->add($this);
-            // Adicionando Tag no Customer
+            // Adicionando Campaign na Tag
+            $tag->getCampaigns()->add($this);
+            // Adicionando Tag no Campaign
             $this->tags->add($tag);
         }
 
@@ -97,9 +97,9 @@ class Campaign
     {
         /** @var Tag $tag */
         foreach ($tags as $tag) {
-            // Removendo Customer na Tag
-            $tag->getCustomers()->removeElement($this);
-            // Removendo Tag no Customer
+            // Removendo Campaign na Tag
+            $tag->getCampaigns()->removeElement($this);
+            // Removendo Tag no Campaign
             $this->tags->removeElement($tag);
         }
 
