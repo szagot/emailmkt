@@ -55,7 +55,7 @@ class CampaignDeletePageAction
         $entity = $this->repository->find($id);
 
         // Pega a uri da listagem
-        $uri = $this->router->generateUri('user.list');
+        $uri = $this->router->generateUri('campaign.list');
 
         // Verifica se o contato existe
         if (! $entity) {
@@ -74,13 +74,13 @@ class CampaignDeletePageAction
 
             // Atribui uma flash Message
             $flash = $request->getAttribute('flash');
-            $flash->setMessage(FlashMessageInterface::MESSAGE_SUCCESS, 'Usuário apagado com sucesso');
+            $flash->setMessage(FlashMessageInterface::MESSAGE_SUCCESS, 'Campanha apagada com sucesso');
 
             // Redireciona para a listagem
             return new RedirectResponse($uri);
         }
 
-        return new HtmlResponse($this->template->render('app::user/delete',
+        return new HtmlResponse($this->template->render('app::campaign/delete',
             ['form' => $this->form]
         ));
     }
