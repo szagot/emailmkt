@@ -237,7 +237,7 @@ return [
             'options'         => [
                 'tokens' => [
                     // Permite nulo ou uma das opções
-                    'order' => '(id|name|email)?',
+                    'order' => '(id|name|subject)?',
                     'type'  => '(asc|desc)?'
                 ]
             ]

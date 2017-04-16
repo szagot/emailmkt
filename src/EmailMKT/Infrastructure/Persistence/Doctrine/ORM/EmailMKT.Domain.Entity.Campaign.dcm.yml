@@ -21,7 +21,11 @@ EmailMKT\Domain\Entity\Campaign:
     # Nome do campo
     name:
       type: string
-      length: 150
+      length: 100
+    # Nome do campo
+    subject:
+      type: string
+      length: 200
     # Nome do campo
     template:
       type: text

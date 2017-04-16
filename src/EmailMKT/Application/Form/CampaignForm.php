@@ -37,6 +37,17 @@ class CampaignForm extends Form
         ]);
 
         $this->add([
+            'name'       => 'subject',
+            'type'       => Element\Text::class,
+            'options'    => [
+                'label' => 'Assunto'
+            ],
+            'attributes' => [
+                'id' => 'subject'
+            ],
+        ]);
+
+        $this->add([
             'name'       => 'tags',
             'type'       => ObjectSelect::class,
             'options'    => [

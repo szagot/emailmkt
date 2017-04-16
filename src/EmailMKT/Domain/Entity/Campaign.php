@@ -13,6 +13,7 @@ class Campaign
 {
     private $id;
     private $name;
+    private $subject;
     private $template;
     private $tags;
 
@@ -48,6 +49,26 @@ class Campaign
     public function setName(string $name)
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSubject()
+    {
+        return $this->subject;
+    }
+
+    /**
+     * @param mixed $subject
+     *
+     * @return Campaign
+     */
+    public function setSubject(string $subject)
+    {
+        $this->subject = $subject;
 
         return $this;
     }

@@ -45,7 +45,24 @@
                                             <i class="fa fa-sort-alpha-desc text-gray"></i>
                                         {% endif %}
                                     {% endif %}
-                                    Nome</a>
+                                    Nome
+                                </a>
+                            </th>
+                            <th>
+                                <a href="
+                                    {% if order.type != "desc" and order.field == 'subject' %}
+                                        {{ url("campaign.list", {order: "subject", type: "desc"}) }}">
+                                        {% if order.field == 'subject' %}
+                                            <i class="fa fa-sort-alpha-asc text-gray"></i>
+                                        {% endif %}
+                                    {% else %}
+                                        {{ url("campaign.list", {order: "subject", type: "asc"}) }}">
+                                        {% if order.field == 'subject' %}
+                                            <i class="fa fa-sort-alpha-desc text-gray"></i>
+                                        {% endif %}
+                                    {% endif %}
+                                    Assunto
+                                </a>
                             </th>
                             <th width="150" class="text-center">Ações</th>
                         </tr>
@@ -57,6 +74,7 @@
                                     </a>
                                 </th>
                                 <td>{{ campaign.name }}</td>
+                                <td>{{ campaign.subject | slice(0,20) }}...</td>
                                 <td class="text-center">
                                     <a class="btn btn-primary btn-xs"
                                        href="{{ url('campaign.update', {id: campaign.id}) }}">

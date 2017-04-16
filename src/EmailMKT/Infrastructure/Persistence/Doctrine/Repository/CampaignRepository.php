@@ -64,6 +64,8 @@ class CampaignRepository extends EntityRepository implements CampaignRepositoryI
             // Ordenado por nome?
             case 'name':
                 return parent::findBy([], ['name' => ($orderType == 'DESC') ? 'DESC' : 'ASC']);
+            case 'subject':
+                return parent::findBy([], ['subject' => ($orderType == 'DESC') ? 'DESC' : 'ASC']);
             default:
                 // Ordenado por id, porém em ordem inversa?
                 if ($orderType == 'DESC') {
