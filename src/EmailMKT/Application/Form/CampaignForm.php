@@ -42,7 +42,8 @@ class CampaignForm extends Form
             'options'    => [
                 'object_manager' => $this->getObjectManager(),
                 'target_class'   => Tag::class,
-                'property'       => 'name'
+                'property'       => 'name',
+                'label'       => 'Tags',
             ],
             'attributes' => [
                 'multiple' => 'multiple'
