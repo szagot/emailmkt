@@ -1,6 +1,6 @@
 {% extends '@layout/default.html.twig' %}
 
-{% block page_header %}Edição de Contato - {{ form.getObject().name }}{% endblock %}
+{% block page_header %}Edição de Campanha - {{ form.getObject().name }}{% endblock %}
 
 {% block title %}{{ block("page_header") }} | {{ parent() }}{% endblock %}
 
@@ -13,7 +13,7 @@
     {% do form.prepare() %}
 
     <div class="row">
-        <div class="col-md-7">
+        <div class="col-md-8">
             <div class="box box-primary">
 
                 {{ form().openTag(form) | raw }}
@@ -29,4 +29,22 @@
         </div>
     </div>
 
+{% endblock %}
+
+{% block javascript %}
+    <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
+    <script type="text/javascript">
+        tinymce.init( {
+            selector: 'textarea',
+            plugins: [
+                'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+                'searchreplace wordcount visualblocks visualchars code fullscreen',
+                'insertdatetime media nonbreaking save table contextmenu directionality',
+                'emoticons template paste textcolor colorpicker textpattern imagetools'
+            ],
+            toolbar1: 'bold italic | fontselect |  fontsizeselect | print preview media | forecolor backcolor emoticons',
+            toolbar2: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+            height: 500,
+        } );
+    </script>
 {% endblock %}
